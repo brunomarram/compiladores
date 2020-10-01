@@ -1,1 +1,1 @@
-flex lex.l && gcc lex.yy.c && ./a.out < entrada.txt
+flex lex.l && gcc lex.yy.c && ./a.out < $1
