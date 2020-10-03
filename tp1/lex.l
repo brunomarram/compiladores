@@ -7,16 +7,16 @@
 %option noyywrap 
 
 /* definicoes regulares */ 
-delim		[ \t\n]
+delim		[ _/\t\n]
 onews [ ] 
 ws		{delim}+ 
 digit   [0-9]
-palavra [a-zA-z]+
+palavra [a-zA-Z]+
 positive  ((\+){digit}+)|{digit}+
 negative  (-){digit}+
 decimal ({positive}|{negative})(\.{digit}+)?(E[+]?{digit}+)?
-placa [A-Z]{3}(-)[0-9]{4}
-telefone [0-9]{4}(-)[0-9]{4}
+placa [A-Z]{3}(-){digit}{4}
+telefone {digit}{4}(-){digit}{4}
 nome ({palavra}{onews}{palavra}{onews}{palavra})|({palavra}{onews}{palavra}{onews}{palavra}{onews}{palavra}) 
 
 %% 
