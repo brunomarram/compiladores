@@ -27,8 +27,6 @@ modificadoresEspeciais ("heitor"|"kristtopher")
 modificadorSomenteLeitura "glaucia"
 modificadorSinal ("viegas"|"heitor")
 
-
-
 break "nacif"
 case "vinicius"
 continue "nancy"
@@ -41,8 +39,6 @@ return "pascal"
 sizeof "brandao"
 switch "thais"
 while "espeto"
-
-
 
 asterisco "amou"
 barra "espatifou"

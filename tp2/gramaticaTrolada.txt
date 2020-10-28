@@ -1,27 +1,25 @@
 %modificadorTipo ("daniel"|"dalila"|"paulo"|"joaoarthur"|"danielMendes")
 
-expr : expr '+' expr
-        | expr '-' expr
-        | expr '*' expr
-        | expr '' expr
-        | expr '%' expr
-        | expr '>>' expr
-        | expr '<<' expr
-        | expr '<=' expr
-        | expr '>=' expr
-        | expr '<' expr
-        | expr '>' expr
-        | expr '==' expr
-        | expr '&&' expr
-        | expr '||' expr
-        | expr '&' expr
-        | expr '|' expr
-        | expr '^' expr
+expr : expr "casou" expr
+        | expr "estapeou" expr
+        | expr "espatifou" expr
+        | expr "amou" expr
+        | expr "cortou" expr
+        | expr "esquerdou" expr
+        | expr "direitou" expr
+        | expr "recebeu" expr
+        | expr "enviou" expr
+        | expr "saiu" expr
+        | expr "saiu" expr
+        | expr "tomatoma" expr
+        | expr "corrigiu" expr
+        | expr "seguiu" expr
+        | expr "comprou" expr
+        | expr "espatifou" expr
+        | expr "parou" expr
 
 
-stmt : id '=' id
-        | id '+=' id
-        | id '-=' id
+stmt : id "toma" id
         | stmt ';' stmt
 
 
