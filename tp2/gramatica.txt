@@ -1,0 +1,64 @@
+%modificadorTipo ("daniel"|"dalila"|"paulo"|"joaoarthur"|"danielMendes")
+
+expr : expr '+' expr
+        | expr '-' expr
+
+stmt : id '=' id
+        | id '+=' id
+        | id '-=' id
+        | stmt ';' stmt
+
+
+for : for '(' stmt ';' expr ';' stmt ')' '{' stmt '}' ';'
+
+break : break ';'
+case : case expr ':' stmt ';'
+        | default ':' stmt ';'
+
+modificadoresVariaveis : modificadoresVariaveis modificadoresVariaveis
+            | modificadorTipo
+            | modificadorSomenteLeitura
+            | modificadorSinal
+            | modificadorTamanho
+            | <vazio>
+
+
+modificadoresFuncao : modificadoresVariaveis modificadoresVariaveis
+    | modificadorTipo
+    | modificadorSinal
+    | modificadorTamanho
+    | <vazio>
+
+definicaoVariavel : modificadoresVariaveis id '=' expr;
+
+
+parametros :  parametros ',' parametros
+            | modificadoresVariaveis id
+            | <vazio>
+
+
+definicaoFuncao : modificadoresFuncao id 'baixo'
+continue : continue ';'
+do : do '{' stmt '}' while '(' expr ')' ';'
+
+while :  while '(' expr ')' '{' stmt '}'
+
+conditional : if '(' expr ')' elseif
+             | if '(' expr ')' elseif else '(' expr ')'
+
+elseif : else condicional
+        | <nulo>
+
+label : id ':'
+
+goto : goto label ';'
+
+return : return stmt ';'
+        | return ';'
+
+sizeof : sizeof '(' id ')' ';'
+
+switch : switch '(' id ')' '{' variosCase '}'
+variosCase : variosCase variosCase ';'
+            | case  ';'
+            | <nulo>
