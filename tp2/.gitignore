@@ -1,0 +1,10 @@
+
+.gitignore
+.idea/.gitignore
+.idea/inspectionProfiles/
+.idea/modules.xml
+.idea/tp2.iml
+.idea/vcs.xml
+
+lex.yy.c
+a.out
