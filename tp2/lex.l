@@ -11,28 +11,38 @@ delim   [ _/\t\n]
 onews   [ ] 
 ws		{delim}+ 
 digit   [0-9]
+letter [a-zA-Z]
+id  ("CAF")({letter}+|{digit}+|_+)
+
+comment ("comentar").*("comentado")
+
+abreEscopo "bonito"
+fechaEscopo "feio"
+fechaExpressao "alto"
+abreExpressao "baixo"
+
+modificadorTipo ("daniel"|"dalila"|"paulo"|"joaoarthur"|"danielMendes")
+modificadorTamanho ("gabriel"|"naiara")
+modificadoresEspeciais ("heitor"|"kristtopher")
+modificadorSomenteLeitura "glaucia"
+modificadorSinal ("viegas"|"heitor")
+
+
 
 break "nacif"
 case "vinicius"
-char "dalila"
-const "glaucia"
 continue "nancy"
 do "vitorhugo"
-double "joaoarthur"
 else "vitorputo"
-float "paulo"
 for "bruno"
 goto "iara"
 if "pato"
-int "daniel"
-long "gabriel"
 return "pascal"
-short "naiara"
-signed "viegas"
 sizeof "brandao"
 switch "thais"
-void "danielMendes"
 while "espeto"
+
+
 
 asterisco "amou"
 barra "espatifou"
@@ -42,10 +52,11 @@ menos "estapeou"
 shiftLeft "esquerdou"
 shiftRight "direitou"
 menorQue "recebeu"
+igual "toma"
 menorOuIgual "saiu"
 maiorQue "enviou"
 maiorOuIgual "ficou"
-igualIgual "analisou"
+igualIgual "tomatoma"
 diferente "julgou"
 eLogico "comprou"
 chapeu "parou"
@@ -53,8 +64,20 @@ pipe "estudou"
 eDouble "corrigiu"
 pipeDouble "seguiu"
 
+operadorDoido "endoidou"
 
 %% 
+{id} { printf("Foi encontrado um identificador. LEXEMA: %s \n", yytext); }
+{abreEscopo} { printf("Foi encontrado um abreEscopo. LEXEMA: %s \n", yytext); }
+{fechaEscopo} { printf("Foi encontrado um fechaEscopo. LEXEMA: %s \n", yytext); }
+{fechaExpressao} { printf("Foi encontrado um fechaExpressao. LEXEMA: %s \n", yytext); }
+{modificadorTipo} { printf("Foi encontrado um modificadorTipo. LEXEMA: %s \n", yytext); }
+{modificadorTamanho} { printf("Foi encontrado um modificadorTamanho. LEXEMA: %s \n", yytext); }
+{modificadoresEspeciais} { printf("Foi encontrado um modificadoresEspeciais. LEXEMA: %s \n", yytext); }
+{modificadorSomenteLeitura} { printf("Foi encontrado um modificadorSomenteLeitura. LEXEMA: %s \n", yytext); }
+{modificadorSinal} { printf("Foi encontrado um modificadorSinal. LEXEMA: %s \n", yytext); }
+
+
 
 {break} { printf("Foi encontrado um break. LEXEMA: %s \n", yytext); }
 {case}  { printf("Foi encontrado um case. LEXEMA: %s \n", yytext); }
@@ -98,8 +121,8 @@ pipeDouble "seguiu"
 {pipeDouble}        { printf("Foi encontrado um pipeDouble. LEXEMA: %s \n", yytext); }
 
 {ws}		{/*nenhuma acao e nenhum retorno*/} 
-
-%% 
+{comment} {/*nenhuma acao e nenhum retorno*/}
+%%
 
 /*codigo em C. Foi criado o main, mas podem ser criadas outras funcoes aqui.*/ 
 int main(void) 
