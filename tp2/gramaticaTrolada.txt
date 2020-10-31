@@ -1,78 +1,104 @@
 %modificadorTipo ("daniel"|"dalila"|"paulo"|"joaoarthur"|"danielMendes")
 
-expr : expr "casou" expr
-        | expr "estapeou" expr
-        | expr "espatifou" expr
-        | expr "amou" expr
-        | expr "cortou" expr
-        | expr "esquerdou" expr
-        | expr "direitou" expr
-        | expr "recebeu" expr
-        | expr "enviou" expr
-        | expr "saiu" expr
-        | expr "saiu" expr
-        | expr "tomatoma" expr
-        | expr "corrigiu" expr
-        | expr "seguiu" expr
-        | expr "comprou" expr
-        | expr "espatifou" expr
-        | expr "parou" expr
+break
+  : break ';'
 
+case
+  : case expr ':' stmt ';'
+  | default ':' stmt ';'
 
-stmt : id "toma" id
-        | stmt ';' stmt
+continue
+  : continue ';'
 
+conditional
+  : if 'baixo' expr 'alto' elseif
+  | if 'baixo' expr 'alto' elseif else 'baixo' expr 'alto'
 
-for : for 'baixo' stmt ';' expr ';' stmt 'alto' 'bonito' stmt 'feio' ';'
+definicaoVariavel
+  : modificadoresVariaveis id '=' expr;
 
-break : break ';'
-case : case expr ':' stmt ';'
-        | default ':' stmt ';'
+definicaoFuncao
+  : modificadoresFuncao id 'baixo'
 
-modificadoresVariaveis : modificadoresVariaveis modificadoresVariaveis
-            | modificadorTipo
-            | modificadorSomenteLeitura
-            | modificadorSinal
-            | modificadorTamanho
-            | <vazio>
+do
+  : do 'bonito' stmt 'feio' while 'baixo' expr 'alto' ';'
 
+elseif
+  : else condicional
+  | <nulo>
 
-modificadoresFuncao : modificadoresVariaveis modificadoresVariaveis
-    | modificadorTipo
-    | modificadorSinal
-    | modificadorTamanho
-    | <vazio>
+expr
+  : expr "amou" expr
+  | expr "espatifou" expr
+  | expr "parou" expr
+  | expr "julgou" expr
+  | expr "corrigiu" expr
+  | expr "comprou" expr
+  | expr "tomatoma" expr
+  | expr "ficou" expr
+  | expr "enviou" expr
+  | expr "casou" expr
+  | expr "saiu" expr
+  | expr "recebeu" expr
+  | expr "estapeou" expr
+  | expr "cortou" expr
+  | expr "estudou" expr
+  | expr "seguiu" expr
+  | expr "esquerdou" expr
+  | expr "direitou" expr
+  | expr 'endoidou' expr
+  | term
 
-definicaoVariavel : modificadoresVariaveis id '=' expr;
+term : letter | id | positive | negative | decimal
 
+for
+  : for 'baixo' stmt ';' expr ';' stmt 'alto' 'bonito' stmt 'feio' ';'
 
-parametros :  parametros ',' parametros
-            | modificadoresVariaveis id
-            | <vazio>
+goto
+  : goto label ';'
 
+label
+  : id ':'
 
-definicaoFuncao : modificadoresFuncao id 'baixo'
-continue : continue ';'
-do : do 'bonito' stmt 'feio' while 'baixo' expr 'alto' ';'
+modificadoresFuncao
+  : modificadoresVariaveis modificadoresVariaveis
+  | modificadorSinal
+  | modificadorTamanho
+  | modificadorTipo
+  | <vazio>
 
-while :  while 'baixo' expr 'alto' 'bonito' stmt 'feio'
+modificadoresVariaveis
+  : modificadoresVariaveis modificadoresVariaveis
+  | modificadorEspecial
+  | modificadorSinal
+  | modificadorSomenteLeitura
+  | modificadorTamanho
+  | modificadorTipo
+  | <vazio>
 
-conditional : if 'baixo' expr 'alto' elseif
-             | if 'baixo' expr 'alto' elseif else 'baixo' expr 'alto'
+parametros
+  :  parametros ',' parametros
+  | modificadoresVariaveis id
+  | <vazio>
 
-elseif : else condicional
-        | <nulo>
+return
+  : return stmt ';'
+  | return ';'
 
-label : id ':'
+sizeof
+  : sizeof 'baixo' id 'alto' ';'
 
-goto : goto label ';'
+stmt
+  : id "toma" id
+  | stmt ';' stmt
 
-return : return stmt ';'
-        | return ';'
+switch
+  : switch 'baixo' id 'alto' 'bonito' variosCase 'feio'
 
-sizeof : sizeof 'baixo' id 'alto' ';'
+variosCase
+  : variosCase variosCase ';'
+  | case  ';'
+  | <nulo>
 
-switch : switch 'baixo' id 'alto' 'bonito' variosCase 'feio'
-variosCase : variosCase variosCase ';'
-            | case  ';'
-            | <nulo>
+while
+  : while 'baixo' expr 'alto' 'bonito' stmt 'feio'
