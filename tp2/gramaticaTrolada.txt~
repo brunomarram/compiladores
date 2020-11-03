@@ -83,7 +83,7 @@ parametros
   | <vazio>
 
 return
-  : return expr ';'
+  : return stmt ';'
   | return ';'
 
 sizeof

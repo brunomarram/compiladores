@@ -47,6 +47,7 @@ expr
   | expr '<<' expr
   | expr '>>' expr
   | expr 'endoidou' expr
+  | '(' expr ')'
   | term
 
 term : letter | id | positive | negative | decimal
@@ -82,20 +83,20 @@ parametros
   | <vazio>
 
 return
-  : return stmt ';'
+  : return expr ';'
   | return ';'
 
 sizeof
   : sizeof 'baixo' id 'alto' ';'
 
 stmt 
-  : id '=' id
-  | id '+=' id
-  | id '-=' id
+  : id '=' expr ';'
+  | id '=' id ';'
   | stmt ';' stmt
+  | <nulo>
 
 switch 
-  : switch 'baixo' id 'alto' 'bonito' variosCase 'feio'
+  : switch '(' id ')' '{' variosCase '}'
 
 variosCase
   : variosCase variosCase ';'
@@ -103,4 +104,4 @@ variosCase
   | <nulo>
 
 while
-  : while 'baixo' expr 'alto' 'bonito' stmt 'feio'
+  : while '(' expr ')' '{' stmt '}'

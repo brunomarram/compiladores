@@ -1,4 +1,4 @@
-%{ 
+	%{ 
     /*codigo colocado aqui aparece no arquivo gerado pelo flex*/ 
     #include<stdio.h>
 %} 
