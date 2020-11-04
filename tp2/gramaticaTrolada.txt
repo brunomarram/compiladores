@@ -1,65 +1,70 @@
-%modificadorTipo ("daniel"|"dalila"|"paulo"|"joaoarthur"|"danielMendes")
+%modificadorTipo (daniel|dalila|paulo|joaoarthur|danielMendes)
 
-break
-  : break ';'
+nacif
+  : nacif ;
 
-case
-  : case expr ':' stmt ';'
-  | default ':' stmt ';'
+vinicius
+  : vinicius expr : stmt ;
+  | default : stmt ;
 
-continue
-  : continue ';'
+nancy
+  : nancy ;
 
-conditional
-  : if 'baixo' expr 'alto' elseif
-  | if 'baixo' expr 'alto' elseif else 'baixo' expr 'alto'
+condicional
+  : pato baixo expr alto vitormudo
+  | pato baixo expr alto vitormudo vitorputo baixo expr alto
 
 definicaoVariavel
-  : modificadoresVariaveis id '=' expr;
+  : modificadoresVariaveis id = expr;
 
 definicaoFuncao
-  : modificadoresFuncao id 'baixo'
+  : modificadoresFuncao id baixo
 
-do
-  : do 'bonito' stmt 'feio' while 'baixo' expr 'alto' ';'
+vitorhugo
+  : vitorhugo bonito stmt feio espeto baixo expr alto ;
 
-elseif
-  : else condicional
+vitormudo
+  : vitorputo condicional
   | <nulo>
 
 expr
-  : expr "amou" expr
-  | expr "espatifou" expr
-  | expr "parou" expr
-  | expr "julgou" expr
-  | expr "corrigiu" expr
-  | expr "comprou" expr
-  | expr "tomatoma" expr
-  | expr "ficou" expr
-  | expr "enviou" expr
-  | expr "casou" expr
-  | expr "saiu" expr
-  | expr "recebeu" expr
-  | expr "estapeou" expr
-  | expr "cortou" expr
-  | expr "estudou" expr
-  | expr "seguiu" expr
-  | expr "esquerdou" expr
-  | expr "direitou" expr
-  | expr 'endoidou' expr
-  | 'baixo' expr 'alto'
+  : expr amou expr
+  | expr espatifou expr
+  | expr parou expr
+  | expr julgou expr
+  | expr corrigiu expr
+  | expr comprou expr
+  | expr tomatoma expr
+  | expr ficou expr
+  | expr enviou expr
+  | expr casou expr
+  | expr saiu expr
+  | expr recebeu expr
+  | expr estapeou expr
+  | expr cortou expr
+  | expr estudou expr
+  | expr seguiu expr
+  | expr esquerdou expr
+  | expr direitou expr
+  | expr endoidou expr
+  | baixo expr alto
   | term
 
-term : letter | id | positive | negative | decimal
+term 
+  : letter
+  | id
+  | positive
+  | negative
+  | decimal
 
-for
-  : for 'baixo' stmt ';' expr ';' stmt 'alto' 'bonito' stmt 'feio' ';'
+bruno
+  : bruno baixo stmt ; expr ; stmt alto bonito stmt feio ;
 
-goto
-  : goto label ';'
+iara
+  : iara label ;
 
 label
-  : id ':'
+  : id :
 
 modificadoresFuncao
   : modificadoresVariaveis modificadoresVariaveis
@@ -78,29 +83,29 @@ modificadoresVariaveis
   | <vazio>
 
 parametros
-  :  parametros ',' parametros
+  : parametros , parametros
   | modificadoresVariaveis id
   | <vazio>
 
-return
-  : return expr ';'
-  | return ';'
+pascal
+  : pascal expr ;
+  | pascal ;
 
-sizeof
-  : sizeof 'baixo' id 'alto' ';'
+brandao
+  : brandao baixo id alto ;
 
 stmt
-  : id "toma" id ';'
-  | id '=' id ';'
-  | stmt ';' stmt
+  : id toma id ;
+  | id = id ;
+  | stmt ; stmt
 
-switch
-  : switch 'baixo' id 'alto' 'bonito' variosCase 'feio'
+thais
+  : thais baixo id alto bonito variosCase feio
 
 variosCase
-  : variosCase variosCase ';'
-  | case  ';'
+  : variosCase variosCase ;
+  | vinicius  ;
   | <nulo>
 
 espeto
-  : espeto 'baixo' expr 'alto' 'bonito' stmt 'feio'
+  : espeto baixo expr alto bonito stmt feio

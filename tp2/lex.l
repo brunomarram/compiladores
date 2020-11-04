@@ -37,6 +37,7 @@ case "vinicius"
 continue "nancy"
 do "vitorhugo"
 else "vitorputo"
+elseif "vitormudo"
 for "bruno"
 goto "iara"
 if "pato"
@@ -88,6 +89,7 @@ operadorDoido "endoidou"
 {continue}  { printf("Foi encontrado um continue. LEXEMA: %s \n", yytext); }
 {do}        { printf("Foi encontrado um do. LEXEMA: %s \n", yytext); }
 {else}      { printf("Foi encontrado um else. LEXEMA: %s \n", yytext); }
+{elseif}    { printf("Foi encontrado um elseif. LEXEMA: %s \n", yytext); }
 {for}       { printf("Foi encontrado um for. LEXEMA: %s \n", yytext); }
 {goto}      { printf("Foi encontrado um goto. LEXEMA: %s \n", yytext); }
 {if}        { printf("Foi encontrado um if. LEXEMA: %s \n", yytext); }
