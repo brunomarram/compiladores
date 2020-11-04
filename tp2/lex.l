@@ -1,10 +1,10 @@
-	%{ 
+/* This tells flex to read only one input file */ 
+%option noyywrap
+
+%{ 
     /*codigo colocado aqui aparece no arquivo gerado pelo flex*/ 
     #include<stdio.h>
-%} 
-
-/* This tells flex to read only one input file */ 
-%option noyywrap 
+%}
 
 /* definicoes regulares */ 
 delim   [ _/\t\n]
@@ -96,18 +96,18 @@ operadorDoido "endoidou"
 {switch}    { printf("Foi encontrado um switch. LEXEMA: %s \n", yytext); }
 {while}     { printf("Foi encontrado um while. LEXEMA: %s \n", yytext); }
 
-{char}      { printf("Foi encontrado um char. LEXEMA: %s \n", yytext); }
-{const}     { printf("Foi encontrado um const. LEXEMA: %s \n", yytext); }
-{decimal}   { printf("Foi encontrado um decimal. LEXEMA: %s \n", yytext); }
-{double}    { printf("Foi encontrado um double. LEXEMA: %s \n", yytext); }
-{float}     { printf("Foi encontrado um float. LEXEMA: %s \n", yytext); }
-{int}       { printf("Foi encontrado um int. LEXEMA: %s \n", yytext); }
-{long}      { printf("Foi encontrado um long. LEXEMA: %s \n", yytext); }
-{negative}  { printf("Foi encontrado um negative. LEXEMA: %s \n", yytext); }
-{positive}  { printf("Foi encontrado um positive. LEXEMA: %s \n", yytext); }
-{short}     { printf("Foi encontrado um short. LEXEMA: %s \n", yytext); }
-{signed}    { printf("Foi encontrado um signed. LEXEMA: %s \n", yytext); }
-{void}      { printf("Foi encontrado um void. LEXEMA: %s \n", yytext); }
+    /* {char}      { printf("Foi encontrado um char. LEXEMA: %s \n", yytext); } */
+    /* {const}     { printf("Foi encontrado um const. LEXEMA: %s \n", yytext); } */
+    /* {decimal}   { printf("Foi encontrado um decimal. LEXEMA: %s \n", yytext); } */
+    /* {double}    { printf("Foi encontrado um double. LEXEMA: %s \n", yytext); } */
+    /* {float}     { printf("Foi encontrado um float. LEXEMA: %s \n", yytext); } */
+    /* {int}       { printf("Foi encontrado um int. LEXEMA: %s \n", yytext); } */
+    /* {long}      { printf("Foi encontrado um long. LEXEMA: %s \n", yytext); } */
+    /* {negative}  { printf("Foi encontrado um negative. LEXEMA: %s \n", yytext); } */
+    /* {positive}  { printf("Foi encontrado um positive. LEXEMA: %s \n", yytext); } */
+    /* {short}     { printf("Foi encontrado um short. LEXEMA: %s \n", yytext); } */
+    /* {signed}    { printf("Foi encontrado um signed. LEXEMA: %s \n", yytext); } */
+    /* {void}      { printf("Foi encontrado um void. LEXEMA: %s \n", yytext); } */
 
 {asterisco}     { printf("Foi encontrado um asterisco. LEXEMA: %s \n", yytext); }
 {barra}         { printf("Foi encontrado um barra. LEXEMA: %s \n", yytext); }
