@@ -11,49 +11,50 @@ continue
   : continue ';'
 
 conditional
-  : if 'baixo' expr 'alto' elseif
-  | if 'baixo' expr 'alto' elseif else 'baixo' expr 'alto'
+  : if abreExpressao expr fechaExpressao elseif
+  | if abreExpressao expr fechaExpressao elseif else abreExpressao expr fechaExpressao
 
 definicaoVariavel 
-  : modificadoresVariaveis id '=' expr ';'
+  : modificadoresVariaveis id igual expr ';'
 
 definicaoFuncao 
-  : modificadoresFuncao id 'baixo'
+  : modificadoresFuncao id abreExpressao
 
 do 
-  : do 'bonito' stmt 'feio' while 'baixo' expr 'alto' ';'
+  : do abreEscopo stmt fechaEscopo while abreExpressao expr fechaExpressao ';'
 
 elseif
   : else condicional
   | <nulo>
 
 expr
-  : expr '*' expr
-  | expr '/' expr
-  | expr '^' expr
-  | expr '!=' expr
-  | expr '&&' expr
-  | expr '&' expr
-  | expr '==' expr
-  | expr '>=' expr
-  | expr '>' expr
-  | expr '+' expr
-  | expr '<=' expr
-  | expr '<' expr
-  | expr '-' expr
-  | expr '%' expr
-  | expr '|' expr
-  | expr '||' expr
-  | expr '<<' expr
-  | expr '>>' expr
-  | expr 'endoidou' expr
+  : expr asterisco expr
+  | expr barra expr
+  | expr chapeu expr
+  | expr diferente expr
+  | expr eDouble expr
+  | expr eLogico expr
+  | expr igual expr
+  | expr igualIgual expr
+  | expr maiorOuIgual expr
+  | expr maiorQue expr
+  | expr mais expr
+  | expr menorOuIgual expr
+  | expr menorQue expr
+  | expr menos expr
+  | expr percentual expr
+  | expr pipe expr
+  | expr pipeDouble expr
+  | expr shiftLeft expr
+  | expr shiftRight expr
+  | expr operadorDoido expr
   | '(' expr ')'
   | term
 
 term : letter | id | positive | negative | decimal
 
 for 
-  : for 'baixo' stmt ';' expr ';' stmt 'alto' 'bonito' stmt 'feio' ';'
+  : for abreExpressao stmt ';' expr ';' stmt fechaExpressao abreEscopo stmt fechaEscopo ';'
 
 goto
   : goto label ';'
@@ -87,11 +88,11 @@ return
   | return ';'
 
 sizeof
-  : sizeof 'baixo' id 'alto' ';'
+  : sizeof abreExpressao id fechaExpressao ';'
 
 stmt 
-  : id '=' expr ';'
-  | id '=' id ';'
+  : id igual expr ';'
+  | id igual id ';'
   | stmt ';' stmt
   | <nulo>
 
