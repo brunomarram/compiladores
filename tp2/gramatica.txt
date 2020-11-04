@@ -102,7 +102,7 @@ stmt
   | continue conditional,definicaoVariavel,definicaoFuncao
 
 switch 
-  : switch '(' id ')' '{' variosCase '}'
+  : switch abreExpressao id fechaExpressao abreEscopo variosCase fechaEscopo
 
 variosCase
   : variosCase variosCase ';'
@@ -110,4 +110,4 @@ variosCase
   | <nulo>
 
 while
-  : while '(' expr ')' '{' stmt '}'
+  : while abreExpressao expr fechaExpressao abreEscopo stmt fechaEscopo
