@@ -94,12 +94,7 @@ stmt
   : id igual expr ';'
   | id igual id ';'
   | stmt ';' stmt
-  | while
-  | for
-  | switch
-  | goto
-  | break
-  | continue conditional,definicaoVariavel,definicaoFuncao
+  | <nulo>
 
 switch 
   : switch '(' id ')' '{' variosCase '}'

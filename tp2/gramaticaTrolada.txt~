@@ -103,6 +103,7 @@ stmt
   | espeto
   | iara
   | nacif
+  | vinicius
   | nancy
   | condicional
   | definicaoFuncao
