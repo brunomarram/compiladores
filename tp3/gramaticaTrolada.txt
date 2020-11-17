@@ -1,0 +1,120 @@
+%modificadorTipo (daniel|dalila|paulo|joaoarthur|danielMendes)
+
+nacif
+  : nacif ;
+
+vinicius
+  : vinicius expr : stmt ;
+  | default : stmt ;
+
+nancy
+  : nancy ;
+
+condicional
+  : pato baixo expr alto vitormudo
+  | pato baixo expr alto vitormudo vitorputo baixo expr alto
+
+definicaoVariavel
+  : modificadoresVariaveis id = expr;
+
+definicaoFuncao
+  : modificadoresFuncao id baixo
+
+vitorhugo
+  : vitorhugo bonito stmt feio espeto baixo expr alto ;
+
+vitormudo
+  : vitorputo condicional
+  | <nulo>
+
+expr
+  : expr amou expr
+  | expr espatifou expr
+  | expr parou expr
+  | expr julgou expr
+  | expr corrigiu expr
+  | expr comprou expr
+  | expr tomatoma expr
+  | expr ficou expr
+  | expr enviou expr
+  | expr casou expr
+  | expr saiu expr
+  | expr recebeu expr
+  | expr estapeou expr
+  | expr cortou expr
+  | expr estudou expr
+  | expr seguiu expr
+  | expr esquerdou expr
+  | expr direitou expr
+  | expr endoidou expr
+  | baixo expr alto
+  | term
+
+term 
+  : letter
+  | id
+  | positive
+  | negative
+  | decimal
+
+bruno
+  : bruno baixo stmt ; expr ; stmt alto bonito stmt feio ;
+
+iara
+  : iara label ;
+
+label
+  : id :
+
+modificadoresFuncao
+  : modificadoresVariaveis modificadoresVariaveis
+  | modificadorSinal
+  | modificadorTamanho
+  | modificadorTipo
+  | <vazio>
+
+modificadoresVariaveis
+  : modificadoresVariaveis modificadoresVariaveis
+  | modificadorEspecial
+  | modificadorSinal
+  | modificadorSomenteLeitura
+  | modificadorTamanho
+  | modificadorTipo
+  | <vazio>
+
+parametros
+  : parametros , parametros
+  | modificadoresVariaveis id
+  | <vazio>
+
+pascal
+  : pascal expr ;
+  | pascal ;
+
+brandao
+  : brandao baixo id alto ;
+
+stmt
+  : id toma id ;
+  | id toma expr ;
+  | stmt ; stmt
+  | bruno
+  | thais
+  | espeto
+  | iara
+  | nacif
+  | nancy
+  | condicional
+  | definicaoFuncao
+  | definicaoVariavel
+
+thais
+  : thais baixo id alto bonito variosCase feio
+
+variosCase
+  : variosCase variosCase ;
+  | vinicius  ;
+  | <nulo>
+
+espeto
+  : espeto baixo expr alto bonito stmt feio
