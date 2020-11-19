@@ -1,7 +1,8 @@
 %{
-#include <stdio.h>
-int yylex();
-void yyerror(char *s); // const char *s
+  #include "lex.yy.c"  
+  #include <stdio.h>
+  int yylex();
+  void yyerror(char *s); // const char *s
 %}
 
 %union {
@@ -11,6 +12,8 @@ void yyerror(char *s); // const char *s
 }
 
 /* definitions */
+%token START END
+
 %token ASTERISCO BARRA CHAPEU MENOS PERCENTUAL SHIFTLEFT SHIFTRIGHT OPERADORDOIDO  /*unários*/
 
 %token DIFERENTE IGUAL IGUALIGUAL MAIOROUIGUAL MAIORQUE MAIS MENOROUIGUAL MENORQUE /*relacionais*/
@@ -40,7 +43,7 @@ void yyerror(char *s); // const char *s
 /* rules */ 
 
 break 
-  : BREAK ';' { /* vazio */ }
+  : BREAK { /* vazio */ }
   ;
 
 term 
@@ -78,7 +81,7 @@ case
   ;
 
 continue 
-  : CONTINUE ';' { /* vazio */ }
+  : CONTINUE { /* vazio */ }
   ;
 
 conditional 
@@ -87,7 +90,7 @@ conditional
   ;
 
 definicaoVariavel 
-  : modificadoresVariaveis ID IGUAL expr ';' { /* vazio */ }
+  : MODIFICADORTIPO ID IGUAL expr { /* vazio */ }
   ;
 
 definicaoFuncao 
@@ -145,8 +148,8 @@ parametros
   ;
 
 return 
-  : RETURN expr ';' { /* vazio */ }
-  | RETURN ';' { /* vazio */ }
+  : RETURN expr { /* vazio */ }
+  | RETURN { /* vazio */ }
   ;
 
 sizeof 
@@ -157,10 +160,14 @@ function_call
   : ID ABREEXPRESSAO parametros FECHAEXPRESSAO ';' { /* vazio */ }
   ;
  
+stmt_list
+  : stmt ';'
+  | stmt ';' stmt_list
+  ;
+
 stmt 
   : ID IGUAL expr ';' { /* vazio */ }
   | ID IGUAL ID ';' { /* vazio */ }
-  | stmt ';' stmt { /* vazio */ }
   | while { /* vazio */ }
   | for { /* vazio */ }
   | switch { /* vazio */ }
@@ -172,6 +179,8 @@ stmt
   | sizeof { /* vazio */ }
   | function_call { /* vazio */ }
   | return { /* vazio */ }
+  | definicaoFuncao { /* vazio */ }
+  | definicaoVariavel { /* vazio */ }
   ;
 
 switch 
@@ -189,29 +198,23 @@ while
   ;
 
 start_point
-  : definicaoFuncao { /* vazio */ }
-  | definicaoVariavel { /* vazio */ }
-  | line { /* vazio */ }
-  ;
-
-line
-  : '\n'
+  : START stmt_list END
   ;
 
 %% 
 
-int lineno = 1;
+int lineno = 0;
 
 /* auxiliary routines */
-// #include "lex.yy.c"  
    
 /* yacc error handler */
 void yyerror(char *s) { // const char *s
   // fprintf(stderr, "%s\n", s);
-  printf("%s\n", s);
-  printf("line: %d\n", lineno);
+  printf("\n\nErro na linha: %d %s", lineno, s);
 }
 
-void main() {
-  yyparse();
+int main() {
+  if(!yyparse()) printf("\n\nPrograma correto\n");
+  else printf("\n\nPrograma errado\n");
+  return 0;
 }

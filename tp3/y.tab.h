@@ -1,8 +1,9 @@
-/* A Bison parser, made by GNU Bison 3.0.4.  */
+/* A Bison parser, made by GNU Bison 3.7.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
+   Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,6 +31,10 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
+
 #ifndef YY_YY_Y_TAB_H_INCLUDED
 # define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
@@ -40,151 +45,162 @@
 extern int yydebug;
 #endif
 
-/* Token type.  */
+/* Token kinds.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    ASTERISCO = 258,
-    BARRA = 259,
-    CHAPEU = 260,
-    MENOS = 261,
-    PERCENTUAL = 262,
-    SHIFTLEFT = 263,
-    SHIFTRIGHT = 264,
-    OPERADORDOIDO = 265,
-    DIFERENTE = 266,
-    IGUAL = 267,
-    IGUALIGUAL = 268,
-    MAIOROUIGUAL = 269,
-    MAIORQUE = 270,
-    MAIS = 271,
-    MENOROUIGUAL = 272,
-    MENORQUE = 273,
-    MODIFICADORESPECIAL = 274,
-    MODIFICADORSINAL = 275,
-    MODIFICADORSOMENTELEITURA = 276,
-    MODIFICADORTAMANHO = 277,
-    MODIFICADORTIPO = 278,
-    EDOUBLE = 279,
-    ELOGICO = 280,
-    PIPE = 281,
-    PIPEDOUBLE = 282,
-    ABREEXPRESSAO = 283,
-    FECHAEXPRESSAO = 284,
-    ABREESCOPO = 285,
-    FECHAESCOPO = 286,
-    VOLATILE = 287,
-    REGISTER = 288,
-    DOUBLE = 289,
-    INT = 290,
-    CHAR = 291,
-    FLOAT = 292,
-    VOID = 293,
-    BOOLEAN = 294,
-    SIGNED = 295,
-    UNSIGNED = 296,
-    LONG = 297,
-    SHORT = 298,
-    CONST = 299,
-    ID = 300,
-    DEFAULT = 301,
-    IF = 302,
-    ELSE = 303,
-    ELSEIF = 304,
-    BREAK = 305,
-    CASE = 306,
-    CONTINUE = 307,
-    RETURN = 308,
-    SWITCH = 309,
-    DO = 310,
-    WHILE = 311,
-    FOR = 312,
-    GOTO = 313,
-    LETTER = 314,
-    POSITIVE = 315,
-    NEGATIVE = 316,
-    DECIMAL = 317,
-    SIZEOF = 318
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    START = 258,                   /* START  */
+    END = 259,                     /* END  */
+    ASTERISCO = 260,               /* ASTERISCO  */
+    BARRA = 261,                   /* BARRA  */
+    CHAPEU = 262,                  /* CHAPEU  */
+    MENOS = 263,                   /* MENOS  */
+    PERCENTUAL = 264,              /* PERCENTUAL  */
+    SHIFTLEFT = 265,               /* SHIFTLEFT  */
+    SHIFTRIGHT = 266,              /* SHIFTRIGHT  */
+    OPERADORDOIDO = 267,           /* OPERADORDOIDO  */
+    DIFERENTE = 268,               /* DIFERENTE  */
+    IGUAL = 269,                   /* IGUAL  */
+    IGUALIGUAL = 270,              /* IGUALIGUAL  */
+    MAIOROUIGUAL = 271,            /* MAIOROUIGUAL  */
+    MAIORQUE = 272,                /* MAIORQUE  */
+    MAIS = 273,                    /* MAIS  */
+    MENOROUIGUAL = 274,            /* MENOROUIGUAL  */
+    MENORQUE = 275,                /* MENORQUE  */
+    MODIFICADORESPECIAL = 276,     /* MODIFICADORESPECIAL  */
+    MODIFICADORSINAL = 277,        /* MODIFICADORSINAL  */
+    MODIFICADORSOMENTELEITURA = 278, /* MODIFICADORSOMENTELEITURA  */
+    MODIFICADORTAMANHO = 279,      /* MODIFICADORTAMANHO  */
+    MODIFICADORTIPO = 280,         /* MODIFICADORTIPO  */
+    EDOUBLE = 281,                 /* EDOUBLE  */
+    ELOGICO = 282,                 /* ELOGICO  */
+    PIPE = 283,                    /* PIPE  */
+    PIPEDOUBLE = 284,              /* PIPEDOUBLE  */
+    ABREEXPRESSAO = 285,           /* ABREEXPRESSAO  */
+    FECHAEXPRESSAO = 286,          /* FECHAEXPRESSAO  */
+    ABREESCOPO = 287,              /* ABREESCOPO  */
+    FECHAESCOPO = 288,             /* FECHAESCOPO  */
+    VOLATILE = 289,                /* VOLATILE  */
+    REGISTER = 290,                /* REGISTER  */
+    DOUBLE = 291,                  /* DOUBLE  */
+    INT = 292,                     /* INT  */
+    CHAR = 293,                    /* CHAR  */
+    FLOAT = 294,                   /* FLOAT  */
+    VOID = 295,                    /* VOID  */
+    BOOLEAN = 296,                 /* BOOLEAN  */
+    SIGNED = 297,                  /* SIGNED  */
+    UNSIGNED = 298,                /* UNSIGNED  */
+    LONG = 299,                    /* LONG  */
+    SHORT = 300,                   /* SHORT  */
+    CONST = 301,                   /* CONST  */
+    ID = 302,                      /* ID  */
+    DEFAULT = 303,                 /* DEFAULT  */
+    IF = 304,                      /* IF  */
+    ELSE = 305,                    /* ELSE  */
+    ELSEIF = 306,                  /* ELSEIF  */
+    BREAK = 307,                   /* BREAK  */
+    CASE = 308,                    /* CASE  */
+    CONTINUE = 309,                /* CONTINUE  */
+    RETURN = 310,                  /* RETURN  */
+    SWITCH = 311,                  /* SWITCH  */
+    DO = 312,                      /* DO  */
+    WHILE = 313,                   /* WHILE  */
+    FOR = 314,                     /* FOR  */
+    GOTO = 315,                    /* GOTO  */
+    LETTER = 316,                  /* LETTER  */
+    POSITIVE = 317,                /* POSITIVE  */
+    NEGATIVE = 318,                /* NEGATIVE  */
+    DECIMAL = 319,                 /* DECIMAL  */
+    SIZEOF = 320                   /* SIZEOF  */
   };
+  typedef enum yytokentype yytoken_kind_t;
 #endif
-/* Tokens.  */
-#define ASTERISCO 258
-#define BARRA 259
-#define CHAPEU 260
-#define MENOS 261
-#define PERCENTUAL 262
-#define SHIFTLEFT 263
-#define SHIFTRIGHT 264
-#define OPERADORDOIDO 265
-#define DIFERENTE 266
-#define IGUAL 267
-#define IGUALIGUAL 268
-#define MAIOROUIGUAL 269
-#define MAIORQUE 270
-#define MAIS 271
-#define MENOROUIGUAL 272
-#define MENORQUE 273
-#define MODIFICADORESPECIAL 274
-#define MODIFICADORSINAL 275
-#define MODIFICADORSOMENTELEITURA 276
-#define MODIFICADORTAMANHO 277
-#define MODIFICADORTIPO 278
-#define EDOUBLE 279
-#define ELOGICO 280
-#define PIPE 281
-#define PIPEDOUBLE 282
-#define ABREEXPRESSAO 283
-#define FECHAEXPRESSAO 284
-#define ABREESCOPO 285
-#define FECHAESCOPO 286
-#define VOLATILE 287
-#define REGISTER 288
-#define DOUBLE 289
-#define INT 290
-#define CHAR 291
-#define FLOAT 292
-#define VOID 293
-#define BOOLEAN 294
-#define SIGNED 295
-#define UNSIGNED 296
-#define LONG 297
-#define SHORT 298
-#define CONST 299
-#define ID 300
-#define DEFAULT 301
-#define IF 302
-#define ELSE 303
-#define ELSEIF 304
-#define BREAK 305
-#define CASE 306
-#define CONTINUE 307
-#define RETURN 308
-#define SWITCH 309
-#define DO 310
-#define WHILE 311
-#define FOR 312
-#define GOTO 313
-#define LETTER 314
-#define POSITIVE 315
-#define NEGATIVE 316
-#define DECIMAL 317
-#define SIZEOF 318
+/* Token kinds.  */
+#define YYEOF 0
+#define YYerror 256
+#define YYUNDEF 257
+#define START 258
+#define END 259
+#define ASTERISCO 260
+#define BARRA 261
+#define CHAPEU 262
+#define MENOS 263
+#define PERCENTUAL 264
+#define SHIFTLEFT 265
+#define SHIFTRIGHT 266
+#define OPERADORDOIDO 267
+#define DIFERENTE 268
+#define IGUAL 269
+#define IGUALIGUAL 270
+#define MAIOROUIGUAL 271
+#define MAIORQUE 272
+#define MAIS 273
+#define MENOROUIGUAL 274
+#define MENORQUE 275
+#define MODIFICADORESPECIAL 276
+#define MODIFICADORSINAL 277
+#define MODIFICADORSOMENTELEITURA 278
+#define MODIFICADORTAMANHO 279
+#define MODIFICADORTIPO 280
+#define EDOUBLE 281
+#define ELOGICO 282
+#define PIPE 283
+#define PIPEDOUBLE 284
+#define ABREEXPRESSAO 285
+#define FECHAEXPRESSAO 286
+#define ABREESCOPO 287
+#define FECHAESCOPO 288
+#define VOLATILE 289
+#define REGISTER 290
+#define DOUBLE 291
+#define INT 292
+#define CHAR 293
+#define FLOAT 294
+#define VOID 295
+#define BOOLEAN 296
+#define SIGNED 297
+#define UNSIGNED 298
+#define LONG 299
+#define SHORT 300
+#define CONST 301
+#define ID 302
+#define DEFAULT 303
+#define IF 304
+#define ELSE 305
+#define ELSEIF 306
+#define BREAK 307
+#define CASE 308
+#define CONTINUE 309
+#define RETURN 310
+#define SWITCH 311
+#define DO 312
+#define WHILE 313
+#define FOR 314
+#define GOTO 315
+#define LETTER 316
+#define POSITIVE 317
+#define NEGATIVE 318
+#define DECIMAL 319
+#define SIZEOF 320
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-
 union YYSTYPE
 {
-#line 7 "translate.y" /* yacc.c:1909  */
+#line 8 "translate.y"
 
   float decimal;
   int boolean;
   int integer;
 
-#line 186 "y.tab.h" /* yacc.c:1909  */
-};
+#line 202 "y.tab.h"
 
+};
 typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

@@ -1,0 +1,5 @@
+
+comecou
+    daniel CAFbruno toma 3;
+    pascal CAFbruno;
+acabou
