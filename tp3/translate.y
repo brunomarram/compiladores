@@ -114,47 +114,21 @@ label
   : ID ':' { /* vazio */ }
   ;
 
-modificadorSinal
-  : MAIS { /* vazio */ }
-  | MENOS { /* vazio */ }
-  ;
-
-modificadorTamanho
-  : LONG { /* vazio */ }
-  | SHORT { /* vazio */ }
-  ;
-
-modificadorTipo
-  : DOUBLE { /* vazio */ }
-  | INT { /* vazio */ }
-  | CHAR { /* vazio */ }
-  | FLOAT { /* vazio */ }
-  ;
-
-modificadorSomenteLeitura
-  : CONST { /* vazio */ }
-  ;
-
-modificadorEspecial
-  : VOLATILE { /* vazio */ }
-  | REGISTER { /* vazio */ }
-  ;
-
 modificadoresFuncao 
   : modificadoresFuncao modificadoresFuncao { /* vazio */ }
-  | modificadorSinal { /* vazio */ }
-  | modificadorTamanho { /* vazio */ }
-  | modificadorTipo { /* vazio */ }
+  | MODIFICADORSINAL { /* vazio */ }
+  | MODIFICADORTAMANHO { /* vazio */ }
+  | MODIFICADORTIPO { /* vazio */ }
   | /*vazio*/ { /* vazio */ }
   ;
 
 modificadoresVariaveis 
   : modificadoresVariaveis modificadoresVariaveis { /* vazio */ }
-  | modificadorSinal { /* vazio */ }
-  | modificadorEspecial { /* vazio */ }
-  | modificadorSomenteLeitura { /* vazio */ }
-  | modificadorTamanho { /* vazio */ }
-  | modificadorTipo { /* vazio */ }
+  | MODIFICADORSINAL { /* vazio */ }
+  | MODIFICADORESPECIAL { /* vazio */ }
+  | MODIFICADORSOMENTELEITURA { /* vazio */ }
+  | MODIFICADORTAMANHO { /* vazio */ }
+  | MODIFICADORTIPO { /* vazio */ }
   | /*vazio*/ { /* vazio */ }
   ;
 
@@ -217,11 +191,16 @@ while
 start_point
   : definicaoFuncao { /* vazio */ }
   | definicaoVariavel { /* vazio */ }
+  | line { /* vazio */ }
+  ;
+
+line
+  : '\n'
   ;
 
 %% 
 
-int lineno = 0;
+int lineno = 1;
 
 /* auxiliary routines */
 // #include "lex.yy.c"  
@@ -230,12 +209,8 @@ int lineno = 0;
 void yyerror(char *s) { // const char *s
   // fprintf(stderr, "%s\n", s);
   printf("%s\n", s);
-  printf("line %d\n", lineno);
+  printf("line: %d\n", lineno);
 }
-
-// int main(void) { 
-//   return yyparse(); 
-// }
 
 void main() {
   yyparse();
