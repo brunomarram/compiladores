@@ -85,8 +85,16 @@ continue
   ;
 
 conditional 
-  : IF ABREEXPRESSAO expr FECHAEXPRESSAO elseif { /* vazio */ }
-  | IF ABREEXPRESSAO expr FECHAEXPRESSAO elseif ELSE ABREEXPRESSAO expr FECHAEXPRESSAO { /* vazio */ }
+  : IF ABREEXPRESSAO expr FECHAEXPRESSAO bloco { /* vazio */ }
+  | IF ABREEXPRESSAO expr FECHAEXPRESSAO bloco elseif { /* vazio */ }
+  | IF ABREEXPRESSAO expr FECHAEXPRESSAO bloco ELSE bloco { /* vazio */ }
+  ;
+
+elseif 
+  : ELSEIF ABREEXPRESSAO expr FECHAEXPRESSAO bloco { /* vazio */ }
+  | ELSEIF ABREEXPRESSAO expr FECHAEXPRESSAO bloco elseif { /* vazio */ }
+  | ELSEIF ABREEXPRESSAO expr FECHAEXPRESSAO bloco elseif ELSE bloco { /* vazio */ }
+  | /*vazio*/ { /* vazio */ }
   ;
 
 definicaoVariavel 
@@ -94,19 +102,15 @@ definicaoVariavel
   ;
 
 definicaoFuncao 
-  : modificadoresFuncao ID ABREEXPRESSAO tipo_parametros FECHAEXPRESSAO ABREESCOPO stmt FECHAESCOPO { /* vazio */ }
+  : MODIFICADORTIPO ID ABREEXPRESSAO tipo_parametros FECHAEXPRESSAO bloco { /* vazio */ }
   ;
 
 do : 
   DO ABREESCOPO stmt FECHAESCOPO WHILE ABREEXPRESSAO expr FECHAEXPRESSAO ';' { /* vazio */ }
   ;
 
-elseif : ELSE conditional { /* vazio */ }
-  | /*vazio*/ { /* vazio */ }
-  ;
-
 for 
-  : FOR ABREEXPRESSAO stmt ';' expr ';' stmt FECHAEXPRESSAO ABREESCOPO stmt FECHAESCOPO ';' { /* vazio */ }
+  : FOR ABREEXPRESSAO stmt ';' expr ';' stmt FECHAEXPRESSAO bloco { /* vazio */ }
   ;
 
 goto 
@@ -149,15 +153,16 @@ parametros
 
 return 
   : RETURN expr { /* vazio */ }
+  | RETURN function_call { /* vazio */ }
   | RETURN { /* vazio */ }
   ;
 
 sizeof 
-  : SIZEOF ABREEXPRESSAO ID FECHAEXPRESSAO ';' { /* vazio */ }
+  : SIZEOF ABREEXPRESSAO ID FECHAEXPRESSAO { /* vazio */ }
   ;
 
 function_call
-  : ID ABREEXPRESSAO parametros FECHAEXPRESSAO ';' { /* vazio */ }
+  : ID ABREEXPRESSAO parametros FECHAEXPRESSAO { /* vazio */ }
   ;
  
 stmt_list
@@ -166,9 +171,7 @@ stmt_list
   ;
 
 stmt 
-  : ID IGUAL expr ';' { /* vazio */ }
-  | ID IGUAL ID ';' { /* vazio */ }
-  | while { /* vazio */ }
+  : while { /* vazio */ }
   | for { /* vazio */ }
   | switch { /* vazio */ }
   | goto { /* vazio */ }
@@ -181,6 +184,7 @@ stmt
   | return { /* vazio */ }
   | definicaoFuncao { /* vazio */ }
   | definicaoVariavel { /* vazio */ }
+  | expr
   ;
 
 switch 
@@ -191,6 +195,11 @@ variosCase
   : variosCase variosCase ';' { /* vazio */ }
   | case ';' { /* vazio */ }
   | /*vazio*/ { /* vazio */ }
+  ;
+
+bloco
+  : ABREESCOPO stmt_list FECHAESCOPO
+  | stmt
   ;
 
 while 
@@ -210,7 +219,7 @@ int lineno = 0;
 /* yacc error handler */
 void yyerror(char *s) { // const char *s
   // fprintf(stderr, "%s\n", s);
-  printf("\n\nErro na linha: %d %s", lineno, s);
+  printf("\n\nErro na linha: %d %s %s", lineno, s, yytext);
 }
 
 int main() {

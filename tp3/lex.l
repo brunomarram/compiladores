@@ -82,8 +82,8 @@ operadorDoido "endoidou"
 {abreEscopo}    { printf("%s", yytext); return ABREESCOPO;}
 {fechaEscopo}   { printf("%s", yytext); return FECHAESCOPO;}
 
-{abreExpressao} { printf("Foi encontrado um abreExpressao. LEXEMA: %s \n", yytext); return ABREEXPRESSAO;}
-{fechaExpressao} { printf("Foi encontrado um fechaExpressao. LEXEMA: %s \n", yytext); return FECHAEXPRESSAO;}
+{abreExpressao} { printf("%s", yytext); return ABREEXPRESSAO;}
+{fechaExpressao} { printf("%s", yytext); return FECHAEXPRESSAO;}
 
 {modificadorEspecial}       { printf("Foi encontrado um modificadorEspecial. LEXEMA: %s \n", yytext); return MODIFICADORESPECIAL;}
 {modificadorSinal}          { printf("Foi encontrado um modificadorSinal. LEXEMA: %s \n", yytext); return MODIFICADORSINAL;}
@@ -97,10 +97,10 @@ operadorDoido "endoidou"
 {continue}  { printf("%s", yytext); return CONTINUE;}
 {do}        { printf("Foi encontrado um do. LEXEMA: %s \n", yytext); return DO;}
 {else}      { printf("Foi encontrado um else. LEXEMA: %s \n", yytext); return ELSE;}
-{elseif}    { printf("Foi encontrado um elseif. LEXEMA: %s \n", yytext); return ELSEIF;}
-{for}       { printf("Foi encontrado um for. LEXEMA: %s \n", yytext); return FOR;}
+{elseif}    { printf("%s", yytext); return ELSEIF;}
+{for}       { printf("%s", yytext); return FOR;}
 {goto}      { printf("Foi encontrado um goto. LEXEMA: %s \n", yytext); return GOTO;}
-{if}        { printf("Foi encontrado um if. LEXEMA: %s \n", yytext); return IF;}
+{if}        { printf("%s", yytext); return IF;}
 {return}    { printf("%s", yytext); return RETURN;}
 {sizeof}    { printf("Foi encontrado um sizeof. LEXEMA: %s \n", yytext); return SIZEOF;}
 {switch}    { printf("Foi encontrado um switch. LEXEMA: %s \n", yytext); return SWITCH;}
@@ -110,18 +110,18 @@ operadorDoido "endoidou"
 ";"          {printf("%s", yytext); return(';');}
 ","          {printf("%s", yytext); return(',');}
 
-{asterisco}     { printf("Foi encontrado um asterisco. LEXEMA: %s \n", yytext); return ASTERISCO;}
+{asterisco}     { printf("%s", yytext); return ASTERISCO;}
 {barra}         { printf("Foi encontrado um barra. LEXEMA: %s \n", yytext); return BARRA;}
 {chapeu}        { printf("Foi encontrado um chapeu. LEXEMA: %s \n", yytext); return CHAPEU;}
 {diferente}     { printf("Foi encontrado um diferente. LEXEMA: %s \n", yytext); return DIFERENTE;}
 {eDouble}       { printf("Foi encontrado um eDouble. LEXEMA: %s \n", yytext); return EDOUBLE;}
 {eLogico}       { printf("Foi encontrado um eLogico. LEXEMA: %s \n", yytext); return ELOGICO;}
 {igual}         { printf("%s", yytext); return IGUAL;}
-{igualIgual}    { printf("Foi encontrado um igualIgual. LEXEMA: %s \n", yytext); return IGUALIGUAL;}
+{igualIgual}    { printf("%s", yytext); return IGUALIGUAL;}
 {maiorOuIgual}  { printf("Foi encontrado um maiorOuIgual. LEXEMA: %s \n", yytext); return MAIOROUIGUAL;}
 {maiorQue}      { printf("Foi encontrado um maiorQue. LEXEMA: %s \n", yytext); return MAIORQUE;}
 {mais}          { printf("Foi encontrado um mais. LEXEMA: %s \n", yytext); return MAIS;}
-{menorOuIgual}  { printf("Foi encontrado um menorOuIgual. LEXEMA: %s \n", yytext); return MENOROUIGUAL;}
+{menorOuIgual}  { printf("%s", yytext); return MENOROUIGUAL;}
 {menorQue}      { printf("Foi encontrado um menorQue. LEXEMA: %s \n", yytext); return MENORQUE;}
 {menos}         { printf("Foi encontrado um menos. LEXEMA: %s \n", yytext); return MENOS;}
 {percentual}    { printf("Foi encontrado um percentual. LEXEMA: %s \n", yytext); return PERCENTUAL;}

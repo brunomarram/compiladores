@@ -3,7 +3,7 @@ all:
 	yacc -d translate.y
 	gcc -o translate y.tab.c
 	clear
-	./translate < programas/programa2.txt
+	./translate < programas/${file}
 run:
 	clear
 	./translate < programas/programa2.txt

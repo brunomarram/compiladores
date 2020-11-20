@@ -936,12 +936,12 @@ YY_RULE_SETUP
 case 6:
 YY_RULE_SETUP
 #line 85 "lex.l"
-{ printf("Foi encontrado um abreExpressao. LEXEMA: %s \n", yytext); return ABREEXPRESSAO;}
+{ printf("%s", yytext); return ABREEXPRESSAO;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 86 "lex.l"
-{ printf("Foi encontrado um fechaExpressao. LEXEMA: %s \n", yytext); return FECHAEXPRESSAO;}
+{ printf("%s", yytext); return FECHAEXPRESSAO;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
@@ -1001,12 +1001,12 @@ YY_RULE_SETUP
 case 19:
 YY_RULE_SETUP
 #line 100 "lex.l"
-{ printf("Foi encontrado um elseif. LEXEMA: %s \n", yytext); return ELSEIF;}
+{ printf("%s", yytext); return ELSEIF;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 101 "lex.l"
-{ printf("Foi encontrado um for. LEXEMA: %s \n", yytext); return FOR;}
+{ printf("%s", yytext); return FOR;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
@@ -1016,7 +1016,7 @@ YY_RULE_SETUP
 case 22:
 YY_RULE_SETUP
 #line 103 "lex.l"
-{ printf("Foi encontrado um if. LEXEMA: %s \n", yytext); return IF;}
+{ printf("%s", yytext); return IF;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
@@ -1056,7 +1056,7 @@ YY_RULE_SETUP
 case 30:
 YY_RULE_SETUP
 #line 113 "lex.l"
-{ printf("Foi encontrado um asterisco. LEXEMA: %s \n", yytext); return ASTERISCO;}
+{ printf("%s", yytext); return ASTERISCO;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
@@ -1091,7 +1091,7 @@ YY_RULE_SETUP
 case 37:
 YY_RULE_SETUP
 #line 120 "lex.l"
-{ printf("Foi encontrado um igualIgual. LEXEMA: %s \n", yytext); return IGUALIGUAL;}
+{ printf("%s", yytext); return IGUALIGUAL;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
@@ -1111,7 +1111,7 @@ YY_RULE_SETUP
 case 41:
 YY_RULE_SETUP
 #line 124 "lex.l"
-{ printf("Foi encontrado um menorOuIgual. LEXEMA: %s \n", yytext); return MENOROUIGUAL;}
+{ printf("%s", yytext); return MENOROUIGUAL;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
