@@ -13,7 +13,7 @@ void initBlockList()
 
 void handleError(int errno)
 {
-	switch (num) {
+	switch (errno) {
 		case 1:
 			printf("SymbolTable Full\n");
 			break;
@@ -33,7 +33,7 @@ void handleError(int errno)
 {
 	indexOflastestSymbolTableLevel++;
 	if (indexOflastestSymbolTableLevel > NMax)
-		Erro(1);
+		handleError(1);
 	else
 		escopo[indexOflastestSymbolTableLevel] = indexOflastElementAtSymbolTable;
 }
@@ -57,7 +57,7 @@ int searchEntryAtSymbolTable(char* symbol)
 	while (K > 1)
 	{
         K--;
-        if( !strcmp(symbol, SymbolTable[K].nome ) ) return K;		// identificador foi encontrado
+        if( !strcmp(symbol, SymbolTable[K].name ) ) return K;		// identificador foi encontrado
 	}
   /* Erro(2); */
 	return 0;
@@ -68,18 +68,18 @@ int searchEntryAtSymbolTable(char* symbol)
 
  void installSymbolAtSymbolTable(char* symbol, int kind)
 {
-	int K;
+	int K	;
 	K = indexOflastElementAtSymbolTable;
 
 	while (K > escopo[indexOflastestSymbolTableLevel]) {
         K--;
-        if( !strcmp(nome, tabela_simbolos[K].nome) ) {	// identificador ja pertence aa tabela
-						Erro(3);
+        if( !strcmp(symbol, SymbolTable[K].name) ) {	// identificador ja pertence aa tabela
+						handleError(3);
 						return;
 				}
 	}
-	tabela_simbolos[indexOflastElementAtSymbolTable].kind = kind;
-	tabela_simbolos[indexOflastElementAtSymbolTable].name = strdup(nome);
+	SymbolTable[indexOflastElementAtSymbolTable].kind = kind;
+	SymbolTable[indexOflastElementAtSymbolTable].name = strdup(symbol);
 
 	indexOflastElementAtSymbolTable++;
 }
@@ -94,6 +94,6 @@ void printSymbolTable()
 	printf("======\t\t====\t\t====\n");
 	for (int i = 1; i < indexOflastElementAtSymbolTable ; i++ )
 	{
-		printf("%d\t\t%d\t\t%s\n", i, tabela_simbolos[i].tipo, tabela_simbolos[i].nome);
+		printf("%d\t\t%d\t\t%s\n", i, SymbolTable[i].kind, SymbolTable[i].name);
 	}
 }
