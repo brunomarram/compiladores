@@ -11,6 +11,8 @@
 #define T_INT 4
 #define T_CHAR 5
 
+#define NMax 10 /* numero maximo de niveis */
+
 #define MAX_NOME 50		/* tamanho maximo para um string */
 #define MAX_PARAMETROS 10	/* limite para o numero de parametros em um procedimento */
 #define TAB_SIZE 100		/* tamanho da tabela de simbolos */
@@ -61,8 +63,5 @@ void Imprime_Tabela();
 int escopo[10];
 int nivel;    /* inteiro que contem o numero do nivel atual */
 int indexOflastElementAtSymbolTable;     		/* inteiro que contem o indice do ultimo elemento da Tabela de Simbolos */
-
-//int indexOflastElementAtSymbolTable;     		/* inteiro que contem o indice do ultimo elemento da Tabela de Simbolos */
-//int indexOfFirstElementAtSymbolTable;   /* inteiro que contem o indice do primeiro elemento da Tabela de Simbolos */
 
 #endif

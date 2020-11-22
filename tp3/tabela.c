@@ -2,12 +2,6 @@
 #include <stdio.h>
 #include "tabela.h"
 
-#define NMax 10 /* numero maximo de niveis */
-
-int escopo[NMax];
-int nivel;  /* guarda o nivel atual */
-int indexOflastElementAtSymbolTable;      /* indice do ultimo elemento da Tabela de Simbolos */
-
 void iniciaListaNO()
 {
 	indexOflastElementAtSymbolTable = 1;    /* Considera-se que a primeira posicao da tabela eh a de indice 1. */
