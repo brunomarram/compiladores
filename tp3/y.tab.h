@@ -1,14 +1,14 @@
-/* A Bison parser, made by GNU Bison 3.7.  */
+/* A Bison parser, made by GNU Bison 2.3.  */
 
-/* Bison interface for Yacc-like parsers in C
+/* Skeleton interface for Bison's Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
-   Inc.
+   Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
+   Free Software Foundation, Inc.
 
-   This program is free software: you can redistribute it and/or modify
+   This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,7 +16,9 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -31,99 +33,78 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
-   especially those whose name start with YY_ or yy_.  They are
-   private implementation details that can be changed or removed.  */
-
-#ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
-/* Debug traces.  */
-#ifndef YYDEBUG
-# define YYDEBUG 0
-#endif
-#if YYDEBUG
-extern int yydebug;
-#endif
-
-/* Token kinds.  */
+/* Tokens.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
-  enum yytokentype
-  {
-    YYEMPTY = -2,
-    YYEOF = 0,                     /* "end of file"  */
-    YYerror = 256,                 /* error  */
-    YYUNDEF = 257,                 /* "invalid token"  */
-    START = 258,                   /* START  */
-    END = 259,                     /* END  */
-    ASTERISCO = 260,               /* ASTERISCO  */
-    BARRA = 261,                   /* BARRA  */
-    CHAPEU = 262,                  /* CHAPEU  */
-    MENOS = 263,                   /* MENOS  */
-    PERCENTUAL = 264,              /* PERCENTUAL  */
-    SHIFTLEFT = 265,               /* SHIFTLEFT  */
-    SHIFTRIGHT = 266,              /* SHIFTRIGHT  */
-    OPERADORDOIDO = 267,           /* OPERADORDOIDO  */
-    DIFERENTE = 268,               /* DIFERENTE  */
-    IGUAL = 269,                   /* IGUAL  */
-    IGUALIGUAL = 270,              /* IGUALIGUAL  */
-    MAIOROUIGUAL = 271,            /* MAIOROUIGUAL  */
-    MAIORQUE = 272,                /* MAIORQUE  */
-    MAIS = 273,                    /* MAIS  */
-    MENOROUIGUAL = 274,            /* MENOROUIGUAL  */
-    MENORQUE = 275,                /* MENORQUE  */
-    MODIFICADORESPECIAL = 276,     /* MODIFICADORESPECIAL  */
-    MODIFICADORSINAL = 277,        /* MODIFICADORSINAL  */
-    MODIFICADORSOMENTELEITURA = 278, /* MODIFICADORSOMENTELEITURA  */
-    MODIFICADORTAMANHO = 279,      /* MODIFICADORTAMANHO  */
-    MODIFICADORTIPO = 280,         /* MODIFICADORTIPO  */
-    EDOUBLE = 281,                 /* EDOUBLE  */
-    ELOGICO = 282,                 /* ELOGICO  */
-    PIPE = 283,                    /* PIPE  */
-    PIPEDOUBLE = 284,              /* PIPEDOUBLE  */
-    ABREEXPRESSAO = 285,           /* ABREEXPRESSAO  */
-    FECHAEXPRESSAO = 286,          /* FECHAEXPRESSAO  */
-    ABREESCOPO = 287,              /* ABREESCOPO  */
-    FECHAESCOPO = 288,             /* FECHAESCOPO  */
-    VOLATILE = 289,                /* VOLATILE  */
-    REGISTER = 290,                /* REGISTER  */
-    DOUBLE = 291,                  /* DOUBLE  */
-    INT = 292,                     /* INT  */
-    CHAR = 293,                    /* CHAR  */
-    FLOAT = 294,                   /* FLOAT  */
-    VOID = 295,                    /* VOID  */
-    BOOLEAN = 296,                 /* BOOLEAN  */
-    SIGNED = 297,                  /* SIGNED  */
-    UNSIGNED = 298,                /* UNSIGNED  */
-    LONG = 299,                    /* LONG  */
-    SHORT = 300,                   /* SHORT  */
-    CONST = 301,                   /* CONST  */
-    ID = 302,                      /* ID  */
-    DEFAULT = 303,                 /* DEFAULT  */
-    IF = 304,                      /* IF  */
-    ELSE = 305,                    /* ELSE  */
-    ELSEIF = 306,                  /* ELSEIF  */
-    BREAK = 307,                   /* BREAK  */
-    CASE = 308,                    /* CASE  */
-    CONTINUE = 309,                /* CONTINUE  */
-    RETURN = 310,                  /* RETURN  */
-    SWITCH = 311,                  /* SWITCH  */
-    DO = 312,                      /* DO  */
-    WHILE = 313,                   /* WHILE  */
-    FOR = 314,                     /* FOR  */
-    GOTO = 315,                    /* GOTO  */
-    LETTER = 316,                  /* LETTER  */
-    POSITIVE = 317,                /* POSITIVE  */
-    NEGATIVE = 318,                /* NEGATIVE  */
-    DECIMAL = 319,                 /* DECIMAL  */
-    SIZEOF = 320                   /* SIZEOF  */
-  };
-  typedef enum yytokentype yytoken_kind_t;
+   /* Put the tokens into the symbol table, so that GDB and other debuggers
+      know about them.  */
+   enum yytokentype {
+     START = 258,
+     END = 259,
+     ASTERISCO = 260,
+     BARRA = 261,
+     CHAPEU = 262,
+     MENOS = 263,
+     PERCENTUAL = 264,
+     SHIFTLEFT = 265,
+     SHIFTRIGHT = 266,
+     OPERADORDOIDO = 267,
+     DIFERENTE = 268,
+     IGUAL = 269,
+     IGUALIGUAL = 270,
+     MAIOROUIGUAL = 271,
+     MAIORQUE = 272,
+     MAIS = 273,
+     MENOROUIGUAL = 274,
+     MENORQUE = 275,
+     MODIFICADORESPECIAL = 276,
+     MODIFICADORSINAL = 277,
+     MODIFICADORSOMENTELEITURA = 278,
+     MODIFICADORTAMANHO = 279,
+     MODIFICADORTIPO = 280,
+     EDOUBLE = 281,
+     ELOGICO = 282,
+     PIPE = 283,
+     PIPEDOUBLE = 284,
+     ABREEXPRESSAO = 285,
+     FECHAEXPRESSAO = 286,
+     ABREESCOPO = 287,
+     FECHAESCOPO = 288,
+     VOLATILE = 289,
+     REGISTER = 290,
+     DOUBLE = 291,
+     INT = 292,
+     CHAR = 293,
+     FLOAT = 294,
+     VOID = 295,
+     BOOLEAN = 296,
+     SIGNED = 297,
+     UNSIGNED = 298,
+     LONG = 299,
+     SHORT = 300,
+     CONST = 301,
+     ID = 302,
+     DEFAULT = 303,
+     IF = 304,
+     ELSE = 305,
+     ELSEIF = 306,
+     BREAK = 307,
+     CASE = 308,
+     CONTINUE = 309,
+     RETURN = 310,
+     SWITCH = 311,
+     DO = 312,
+     WHILE = 313,
+     FOR = 314,
+     GOTO = 315,
+     LETTER = 316,
+     POSITIVE = 317,
+     NEGATIVE = 318,
+     DECIMAL = 319,
+     SIZEOF = 320
+   };
 #endif
-/* Token kinds.  */
-#define YYEOF 0
-#define YYerror 256
-#define YYUNDEF 257
+/* Tokens.  */
 #define START 258
 #define END 259
 #define ASTERISCO 260
@@ -188,27 +169,24 @@ extern int yydebug;
 #define DECIMAL 319
 #define SIZEOF 320
 
-/* Value type.  */
-#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-union YYSTYPE
-{
-#line 8 "translate.y"
 
+
+
+#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
+typedef union YYSTYPE
+#line 8 "translate.y"
+{
   float decimal;
   int boolean;
   int integer;
-
-#line 202 "y.tab.h"
-
-};
-typedef union YYSTYPE YYSTYPE;
-# define YYSTYPE_IS_TRIVIAL 1
+}
+/* Line 1529 of yacc.c.  */
+#line 185 "y.tab.h"
+	YYSTYPE;
+# define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
+# define YYSTYPE_IS_TRIVIAL 1
 #endif
-
 
 extern YYSTYPE yylval;
 
-int yyparse (void);
-
-#endif /* !YY_YY_Y_TAB_H_INCLUDED  */

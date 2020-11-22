@@ -57,7 +57,6 @@ expr
   | expr DIFERENTE expr { /* vazio */ }
   | expr EDOUBLE expr { /* vazio */ }
   | expr ELOGICO expr { /* vazio */ }
-  | expr IGUAL expr { /* vazio */ }
   | expr IGUALIGUAL expr { /* vazio */ }
   | expr MAIOROUIGUAL expr { /* vazio */ }
   | expr MAIORQUE expr { /* vazio */ }
@@ -172,6 +171,7 @@ stmt_list
 
 stmt 
   : while { /* vazio */ }
+  | expr IGUAL expr { /* vazio */ }
   | for { /* vazio */ }
   | switch { /* vazio */ }
   | goto { /* vazio */ }
@@ -184,7 +184,6 @@ stmt
   | return { /* vazio */ }
   | definicaoFuncao { /* vazio */ }
   | definicaoVariavel { /* vazio */ }
-  | expr
   ;
 
 switch 
