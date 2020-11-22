@@ -5,6 +5,8 @@
 .idea/tp2.iml
 .idea/vcs.xml
 
+cmake-build-debug/**
+
 lex.yy.c
 a.out
 y.tab.c
