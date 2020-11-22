@@ -32,36 +32,36 @@ typedef struct tipo_definido_str {
     int tipo_apontado;
 } tipo_definido_t;
 
-typedef struct simbolo_str
+typedef struct symbolTable
 {
-  char *nome;
-  int tipo;
+  char *name;
+  int kind;
   union {
-    int booleano;
+    int bool;
     int number;
-    char const_char;
+    char string;
   } valor;
 
-} simbolo_t;
+} symbolTable;
 
-simbolo_t tabela_simbolos[TAB_SIZE];
+symbolTable SymbolTable[TAB_SIZE];
 
 extern YYSTYPE yylval;
 extern int linha;
 extern FILE *yyin, *yyout;
 
 //Funcoes da TS
-void iniciaListaNO(void);
-void Entrada_Bloco(void);
-void Saida_Bloco(void);
-void Erro(int numero);
-int  Recupera_Entrada(char *nome);
-void Instala(char *nome, int tipo);
-void Imprime_Tabela();
+void initBlockList(void);
+void handleError(int);
+int  Recupera_Entrada(char *);
+void installSymbolAtSymbolTable(char *, int );
+void printSymbolTable();
+void startBlock(void);
+void endBlock(void);
 
 // Tabela de Simbolos
 int escopo[10];
-int nivel;    /* inteiro que contem o numero do nivel atual */
+int indexOflastestSymbolTableLevel;    /* inteiro que contem o numero do indexOflastestSymbolTableLevel atual */
 int indexOflastElementAtSymbolTable;     		/* inteiro que contem o indice do ultimo elemento da Tabela de Simbolos */
 
 #endif
