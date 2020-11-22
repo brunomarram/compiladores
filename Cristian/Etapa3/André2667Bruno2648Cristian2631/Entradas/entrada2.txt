@@ -1,0 +1,10 @@
+program
+    integer: a, b;
+    char: c;
+    boolean: d;
+begin
+    a := 123;
+    c := 'e';
+    b := a + c;
+    d := 1
+end

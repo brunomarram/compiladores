@@ -1,0 +1,21 @@
+program
+   integer: num;
+   char: amaral, diniz, franco;
+   boolean: ggComp;
+
+   integer procedure somaMista(value integer: a, value char: b, value char: c, value char: d, value boolean: e):
+      integer: resultado;
+   begin
+      resultado := a + b + c + d + e;
+      return resultado
+   end;	
+
+begin
+   num := 100 * 4000; /* Capacidade excedida para o tipo integer */
+   franco := 'a';
+   diniz := 'b';
+   amaral := 'c';
+   ggComp := false;
+   
+   somaMista(num, franco, diniz, amaral, ggComp)
+end

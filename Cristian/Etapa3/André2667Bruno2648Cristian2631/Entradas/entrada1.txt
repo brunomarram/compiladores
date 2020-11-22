@@ -1,0 +1,11 @@
+program
+    integer: a, b, c, d, e, f, g;
+begin
+    a := 100;
+    b := a + 175;
+    c := b - 200;
+    d := c * 3;
+    e := d / 2;
+    f := e ** 2;
+    g := a * b - c + d / e - f
+end
