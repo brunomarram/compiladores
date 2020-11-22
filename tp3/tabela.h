@@ -67,7 +67,7 @@ void Imprime_Tabela();
 // Tabela de Simbolos
 int escopo[10];
 int nivel;    /* inteiro que contem o numero do nivel atual */
-int L;     		/* inteiro que contem o indice do ultimo elemento da Tabela de Simbolos */
+int indexOflastElementAtSymbolTable;     		/* inteiro que contem o indice do ultimo elemento da Tabela de Simbolos */
 
 //int indexOflastElementAtSymbolTable;     		/* inteiro que contem o indice do ultimo elemento da Tabela de Simbolos */
 //int indexOfFirstElementAtSymbolTable;   /* inteiro que contem o indice do primeiro elemento da Tabela de Simbolos */

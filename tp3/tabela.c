@@ -6,13 +6,13 @@
 
 int escopo[10];
 int nivel;  /* guarda o nivel atual */
-int L;      /* indice do ultimo elemento da Tabela de Simbolos */
+int indexOflastElementAtSymbolTable;      /* indice do ultimo elemento da Tabela de Simbolos */
 
 void iniciaListaNO()
 {
-	L = 1;    /* Considera-se que a primeira posicao da tabela eh a de indice 1. */
+	indexOflastElementAtSymbolTable = 1;    /* Considera-se que a primeira posicao da tabela eh a de indice 1. */
 	nivel = 1;           /* O primeiro nivel eh o 1 */
-	escopo[nivel] = L;   /* escopo[1] contem o indice do primeiro elemento */
+	escopo[nivel] = indexOflastElementAtSymbolTable;   /* escopo[1] contem o indice do primeiro elemento */
 }
 
 /************  Funcao que define os erros provaveis de ocorrer **********/
@@ -33,14 +33,14 @@ void Erro(int num)
 {
 	nivel++;
 	if (nivel > NMax) Erro(1);
-	else escopo[nivel] = L;
+	else escopo[nivel] = indexOflastElementAtSymbolTable;
 }
 
 /******************** Funcao de saida de um bloco ***********************/
 
  void Saida_Bloco()
 {
-	L = escopo[nivel];
+	indexOflastElementAtSymbolTable = escopo[nivel];
 	nivel--;
 }
 
@@ -50,7 +50,7 @@ void Erro(int num)
 int Recupera_Entrada(char* nome)
 {
 	int K; /* percorre a lista */
-	K = L;
+	K = indexOflastElementAtSymbolTable;
 
 	while (K > 1)
 	{
@@ -67,7 +67,7 @@ int Recupera_Entrada(char* nome)
  void Instala(char* nome, int tipo)
 {
 	int K;
-	K = L;
+	K = indexOflastElementAtSymbolTable;
 
 	while (K > escopo[nivel]) {
         K--;
@@ -76,22 +76,21 @@ int Recupera_Entrada(char* nome)
 						return;
 				}
 	}
-	tabela_simbolos[L].nome = strdup(nome);
-	tabela_simbolos[L].tipo = tipo;
+	tabela_simbolos[indexOflastElementAtSymbolTable].nome = strdup(nome);
+	tabela_simbolos[indexOflastElementAtSymbolTable].tipo = tipo;
 
-	L++;
+	indexOflastElementAtSymbolTable++;
 }
 
 /******  Funcao que imprime alguns atributos da tabela de simbolos***********/
 
 void Imprime_Tabela()
 {
-	int i;
 	printf("\nTabela de Simbolos:\n");
 	printf("===================\n\n");
 	printf("INDICE\t\tTIPO\t\tNOME\n");
 	printf("======\t\t====\t\t====\n");
-	for (i = 1; i < L ; i++ )
+	for (int i = 1; i < indexOflastElementAtSymbolTable ; i++ )
 	{
 		printf("%d\t\t%d\t\t%s\n", i, tabela_simbolos[i].tipo, tabela_simbolos[i].nome);
 	}
