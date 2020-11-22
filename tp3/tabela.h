@@ -39,14 +39,7 @@ typedef struct simbolo_str
     int number;
     char const_char;
   } valor;
-	/* int nivel;
-	int width;	// quantidade de palavras para alocar a variavel
-	int offset;	// deslocamento
-	int local;
-	int constante;
-	int quad;
-	procedimento_t procedimento;
-	tipo_definido_t tipo_definido;*/
+
 } simbolo_t;
 
 simbolo_t tabela_simbolos[TAB_SIZE];
