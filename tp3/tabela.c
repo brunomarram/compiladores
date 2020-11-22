@@ -4,7 +4,7 @@
 
 #define NMax 10 /* numero maximo de niveis */
 
-int escopo[10];
+int escopo[NMax];
 int nivel;  /* guarda o nivel atual */
 int indexOflastElementAtSymbolTable;      /* indice do ultimo elemento da Tabela de Simbolos */
 
