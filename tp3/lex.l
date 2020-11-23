@@ -130,10 +130,10 @@ operadorDoido "endoidou"
 {shiftLeft}     { printf("%s \n", yytext); return SHIFTLEFT;}
 {shiftRight}    { printf("%s \n", yytext); return SHIFTRIGHT;}
 
-{letter}      { printf("%s", yytext); return LETTER;}
-{positive}    { printf("%s", yytext); return POSITIVE;}
-{negative}    { printf("%s", yytext); return NEGATIVE;}
-{decimal}     { printf("%s", yytext); return DECIMAL;}
+{letter}      { printf("%s", yytext); yylval.letter = yytext[1]; return LETTER;}
+{positive}    { printf("%s", yytext); yylval.vavalue_intlor = atoi(yytext) ;return POSITIVE;}
+{negative}    { printf("%s", yytext); yylval.value_int = atoi(yytext) ; return NEGATIVE;}
+{decimal}     { printf("%s", yytext); yylval.value_float = atof(yytext) ;return DECIMAL;}
 
 {nl} {extern int lineno; lineno++;printf("\n%d|", lineno);}
 
