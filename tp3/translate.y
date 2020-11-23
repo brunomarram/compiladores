@@ -9,13 +9,8 @@
 %}
 
 %union {
-  float decimal;
-  int boolean;
-  int integer;
-  char letter;
-  char *word;
-  // tad_symbol_table tad;
-  // parameter par;
+  float value;
+  char *id;
 }
 
 /* definitions */
