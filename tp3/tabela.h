@@ -5,11 +5,23 @@
 #include <stdio.h>
 #include "y.tab.h"
 
-#define T_VOID 1
-#define T_PROCEDURE 2
-#define T_BOOLEAN 3
-#define T_INT 4
-#define T_CHAR 5
+#define TYPE_VOID 2
+#define TYPE_INT 3
+#define TYPE_CHAR 4
+#define TYPE_DOUBLE 5
+#define TYPE_CHAR 6
+#define TYPE_FLOAT 9 
+#define TYPE_DOUBLE 10
+#define TYPE_VOLATILE 12
+#define TYPE_REGISTER 13
+#define TYPE_CONST 14
+#define TYPE_SHORT 15
+#define TYPE_LONG 16
+#define TYPE_SIGNED 17
+#define TYPE_UNSIGNED 18
+#define TYPE_TRUE 19
+#define TYPE_FALSE 20
+  
 
 #define NMax 10 /* numero maximo de niveis */
 
@@ -36,11 +48,9 @@ typedef struct symbolTable
 {
   char *name;
   int kind;
-  union {
-    int bool;
     int number;
-    char string;
-  } valor;
+    float decimal;
+    char letter;
 
 } symbolTable;
 

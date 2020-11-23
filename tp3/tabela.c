@@ -62,6 +62,9 @@ int searchEntryAtSymbolTable(char* symbol)
   /* Erro(2); */
 	return 0;
 }
+//  void installFunctionAtSymbolTable(char* symbol, int kind)
+ /// Instalar nome da função na tabela de símbolos anterior A. e instalar seus argumentos em uma tabela de símbolos nova B. B vem depois de A
+
 
 /***************  Funcao que instala o item na tabela*****************/
 /* Instala um identificador com os atributos na Tabela de Simbolos */

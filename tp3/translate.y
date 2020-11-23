@@ -6,11 +6,18 @@
 
   int yylex();
   void yyerror(char *s); // const char *s
+  int global_type;
+  char *global_id_name;
+  int global_syntax_errors = 0;
 %}
 
 %union {
-  float value;
-  char *id;
+  char *name;
+  float value_float;
+  int value_int;
+  int tipo;
+  char letter;
+
 }
 
 /* definitions */
@@ -20,36 +27,57 @@
 
 %token DIFERENTE IGUAL IGUALIGUAL MAIOROUIGUAL MAIORQUE MAIS MENOROUIGUAL MENORQUE /*relacionais*/
 
-%token MODIFICADORESPECIAL MODIFICADORSINAL MODIFICADORSOMENTELEITURA MODIFICADORTAMANHO MODIFICADORTIPO
-
 %token EDOUBLE ELOGICO PIPE PIPEDOUBLE /*lógicos*/
 
 %token ABREEXPRESSAO FECHAEXPRESSAO ABREESCOPO FECHAESCOPO /*blocos*/
 
 /*tokens modificadores*/
 %token VOLATILE REGISTER
-%token DOUBLE INT CHAR FLOAT VOID BOOLEAN
+%token DOUBLE INT CHAR FLOAT VOID TRUE FALSE
 %token SIGNED UNSIGNED
 %token LONG SHORT
 %token CONST
 
 /*tokens operadores*/
-%token ID
+%token <name> ID
+%token <letter> LETTER
+%token <value_int> POSITIVE
+%token <value_int> NEGATIVE
+%token <value_float> DECIMAL
 %token DEFAULT IF ELSE ELSEIF BREAK CASE CONTINUE RETURN SWITCH
 %token DO WHILE FOR GOTO
-%token LETTER POSITIVE NEGATIVE DECIMAL
 %token SIZEOF
 
 %start start_point
 %% 
-/* rules */ 
 
 break 
   : BREAK { /* vazio */ }
   ;
 
-term 
-  : LETTER | ID | POSITIVE | NEGATIVE | DECIMAL { /* vazio */ }
+
+positiveNegative
+  : POSITIVE {$<value_int>$ = $<value_int>1;}
+  | NEGATIVE {$<value_int>$ = $<value_int>1;}
+  ;
+  
+decimal
+  : DECIMAL {$<value_float>$ = $<value_float>1;}
+  ;
+id 
+  : ID {$<name>$ = $<name>1;}
+  ;
+
+letter
+  : LETTER {$<letter>$ = $<letter>1;}
+  ;
+
+term
+  : LETTER { }
+  | ID {}
+  | DECIMAL  {}
+  | POSITIVE {}
+  | NEGATIVE {}
   ;
 
 expr 
@@ -73,7 +101,11 @@ expr
   | expr SHIFTRIGHT expr { /* vazio */ }
   | expr OPERADORDOIDO expr { /* vazio */ }
   | '(' expr ')' { /* vazio */ }
-  | term { /* get_item_value($<word>1); */ }
+  | ID { /* searchEntryAtSymbolTable($<name>1); */ }
+  | LETTER { /* vazio */ }
+  | POSITIVE { /* vazio */ }
+  | NEGATIVE { /* vazio */ }
+  | DECIMAL { /* vazio */ }
   ;
 
 case 
@@ -98,17 +130,23 @@ elseif
   | /*vazio*/ { /* vazio */ }
   ;
 
+
 definicaoVariavel 
-  : MODIFICADORTIPO ID IGUAL expr { /* install_var($<integer>1, $<word>2, $<tad_symbol_table>4); */ }
+  : modificadorTipo ID IGUAL expr { global_id_name = strdup($<ident>1);installSymbolAtSymbolTable($<name>1, $<word>2); }
   ;
 
 definicaoFuncao 
-  : MODIFICADORTIPO ID ABREEXPRESSAO tipo_parametros FECHAEXPRESSAO bloco { /* install_function($<integer>1, $<word>2, $<parameter>4); */ }
+  : modificadorTipo ID ABREEXPRESSAO tipoParametros FECHAEXPRESSAO bloco { /* installSymbolAtSymbolTable($<integer>1, $<word>2); */ }
   ;
+
+void a(int b, char c) {
+  
+}
 
 do : 
   DO ABREESCOPO stmt FECHAESCOPO WHILE ABREEXPRESSAO expr FECHAEXPRESSAO ';' { /* vazio */ }
   ;
+
 
 for 
   : FOR ABREEXPRESSAO stmt ';' expr ';' stmt FECHAEXPRESSAO bloco { /* vazio */ }
@@ -122,27 +160,19 @@ label
   : ID ':' { /* install_label($<word>1); */ }
   ;
 
-modificadoresFuncao 
-  : modificadoresFuncao modificadoresFuncao { /* vazio */ }
-  | MODIFICADORSINAL { /* vazio */ }
-  | MODIFICADORTAMANHO { /* vazio */ }
-  | MODIFICADORTIPO { /* vazio */ }
-  | /*vazio*/ { /* vazio */ }
+
+modificadorTipo 
+  : CHAR      {global_type = TYPE_CHAR;}
+  | VOID      {global_type = TYPE_VOID;}
+  | FLOAT     {global_type = TYPE_FLOAT;}
+  | DOUBLE    {global_type = TYPE_DOUBLE;}
+  | INT       {global_type = TYPE_INT;}
   ;
 
-modificadoresVariaveis 
-  : modificadoresVariaveis modificadoresVariaveis { /* vazio */ }
-  | MODIFICADORSINAL { /* vazio */ }
-  | MODIFICADORESPECIAL { /* vazio */ }
-  | MODIFICADORSOMENTELEITURA { /* vazio */ }
-  | MODIFICADORTAMANHO { /* vazio */ }
-  | MODIFICADORTIPO { /* vazio */ }
-  | /*vazio*/ { /* vazio */ }
-  ;
 
-tipo_parametros 
-  : tipo_parametros ',' tipo_parametros { /* vazio */ }
-  | modificadoresVariaveis ID { /* vazio */ }
+tipoParametros 
+  : tipoParametros ',' tipoParametros { /* vazio */ }
+  | modificadorTipo ID { /* vazio */ }
   | /*vazio*/ { /* vazio */ }
   ;
 
@@ -154,7 +184,7 @@ parametros
 
 return 
   : RETURN expr { /* vazio */ }
-  | RETURN function_call { /* vazio */ }
+  | RETURN functionCall { /* vazio */ }
   | RETURN { /* vazio */ }
   ;
 
@@ -162,13 +192,13 @@ sizeof
   : SIZEOF ABREEXPRESSAO ID FECHAEXPRESSAO { /* vazio */ }
   ;
 
-function_call
+functionCall
   : ID ABREEXPRESSAO parametros FECHAEXPRESSAO { /* vazio */ }
   ;
  
-stmt_list
+stmtList
   : stmt ';'
-  | stmt ';' stmt_list
+  | stmt ';' stmtList
   ;
 
 stmt 
@@ -182,7 +212,7 @@ stmt
   | do { /* vazio */ }
   | conditional { /* vazio */ }
   | sizeof { /* vazio */ }
-  | function_call { /* vazio */ }
+  | functionCall { /* vazio */ }
   | return { /* vazio */ }
   | definicaoFuncao { /* vazio */ }
   | definicaoVariavel { /* vazio */ }
@@ -199,7 +229,7 @@ variosCase
   ;
 
 bloco
-  : ABREESCOPO stmt_list FECHAESCOPO
+  : ABREESCOPO stmtList FECHAESCOPO
   | stmt
   ;
 
@@ -208,7 +238,7 @@ while
   ;
 
 start_point
-  : START stmt_list END
+  : START stmtList END
   ;
 
 %% 
@@ -224,6 +254,7 @@ void yyerror(char *s) { // const char *s
 }
 
 int main() {
+  initBlockList();
   if(!yyparse()) printf("\n\nPrograma correto\n");
   else printf("\n\nPrograma errado\n");
   return 0;

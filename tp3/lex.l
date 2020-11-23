@@ -13,7 +13,8 @@ delim [ _/\t]
 
 ws		{delim}+ 
 digit   [0-9]
-boolean ("verdade"|"mentira")
+true "verdade"
+false "mentira"
 letter  [a-zA-Z]
 positive  ((\+){digit}+)|{digit}+
 negative  (-){digit}+
@@ -31,11 +32,11 @@ fechaEscopo "feio"
 abreExpressao "baixo"
 fechaExpressao "alto"
 
-modificadorEspecial ("heitor"|"kristtopher")
-modificadorSinal ("viegas"|"jose")
-modificadorSomenteLeitura "glaucia"
-modificadorTamanho ("gabriel"|"naiara")
-modificadorTipo ("daniel"|"dalila"|"paulo"|"joaoarthur"|"danielMendes")
+char "dalila"
+float "paulo"
+double "joaoarthur"
+void "danielmendes"
+int "daniel"
 
 break "nacif"
 case "vinicius"
@@ -74,7 +75,7 @@ shiftRight "direitou"
 operadorDoido "endoidou"
 
 %% 
-{id}  { printf("%s", yytext); yylval.id = strdup(yytext); return ID;}
+{id}  { printf("%s", yytext); yylval.name = strdup(yytext); return ID;}
 
 {start}    { printf("%s", yytext); return START;}
 {end}   { printf("%s", yytext); return END;}
@@ -85,14 +86,16 @@ operadorDoido "endoidou"
 {abreExpressao} { printf("%s", yytext); return ABREEXPRESSAO;}
 {fechaExpressao} { printf("%s", yytext); return FECHAEXPRESSAO;}
 
-    /* Acredito que em modificador não precisa passar nenhuma flag para representar, pois ao reconhecer o token no Yacc já deve ser capaz de inserir na tabela de símbolo de acordo com a gramática equivalente */
-{modificadorEspecial}       { printf("%s", yytext); return MODIFICADORESPECIAL;}
-{modificadorSinal}          { printf("%s", yytext); return MODIFICADORSINAL;}
-{modificadorSomenteLeitura} { printf("%s", yytext); return MODIFICADORSOMENTELEITURA;}
-{modificadorTamanho}        { printf("%s", yytext); return MODIFICADORTAMANHO;}
-{modificadorTipo}           { printf("%s", yytext); return MODIFICADORTIPO;}
+ 
+{void}      { printf("%s", yytext); return VOID;}
 
-{boolean}   { printf("%s", yytext); return BOOLEAN;}
+{char}      { printf("%s", yytext); return CHAR; }
+{float}     { printf("%s", yytext); return FLOAT;}
+{double}    { printf("%s", yytext); return DOUBLE;}
+{int}       { printf("%s", yytext); return INT;}
+
+{true}      { printf("%s", yytext); return TRUE;}
+{false}     { printf("%s", yytext); return FALSE;}
 {break}     { printf("%s", yytext); return BREAK;}
 {case}      { printf("%s", yytext); return CASE;}
 {continue}  { printf("%s", yytext); return CONTINUE;}
@@ -132,9 +135,9 @@ operadorDoido "endoidou"
 {shiftRight}    { printf("%s", yytext); return SHIFTRIGHT;}
 
 {letter}      { printf("%s", yytext); yylval.tad_yyval.letter = yytext[1]; return LETTER;}
-{positive}    { printf("%s", yytext); yylval.tad_yyval.integer = atoi(yytext) ;return POSITIVE;}
-{negative}    { printf("%s", yytext); yylval.tad_yyval.integer = atoi(yytext) ; return NEGATIVE;}
-{decimal}     { printf("%s", yytext); yylval.tad_yyval.decimal = atof(yytext) ;return DECIMAL;}
+{positive}    { printf("%s", yytext); yylval.tad_yyval.value_int = atoi(yytext) ;return POSITIVE;}
+{negative}    { printf("%s", yytext); yylval.tad_yyval.value_int = atoi(yytext) ; return NEGATIVE;}
+{decimal}     { printf("%s", yytext); yylval.tad_yyval.value_float = atof(yytext) ;return DECIMAL;}
 
 {nl} {extern int lineno; lineno++;printf("\n%d|", lineno);}
 
