@@ -6,7 +6,7 @@ all:
 	./translate < programas/${file}
 run:
 	clear
-	./translate < programas/programa2.txt
+	./translate < programas/${file}
 instalarLex:
 	sudo apt-get install flex
 instalarYacc:

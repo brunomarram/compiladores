@@ -71,7 +71,7 @@ expr
   | expr SHIFTRIGHT expr { /* vazio */ }
   | expr OPERADORDOIDO expr { /* vazio */ }
   | '(' expr ')' { /* vazio */ }
-  | term { /* vazio */ }
+  | term { get_item_value($1); /* vazio */ }
   ;
 
 case 
@@ -97,11 +97,11 @@ elseif
   ;
 
 definicaoVariavel 
-  : MODIFICADORTIPO ID IGUAL expr { /* vazio */ }
+  : MODIFICADORTIPO ID IGUAL expr { install_var($1, $2, $4); /* vazio */ }
   ;
 
 definicaoFuncao 
-  : MODIFICADORTIPO ID ABREEXPRESSAO tipo_parametros FECHAEXPRESSAO bloco { /* vazio */ }
+  : MODIFICADORTIPO ID ABREEXPRESSAO tipo_parametros FECHAEXPRESSAO bloco { install_function($1, $2, $4); /* vazio */ }
   ;
 
 do : 
@@ -117,7 +117,7 @@ goto
   ;
 
 label 
-  : ID ':' { /* vazio */ }
+  : ID ':' { install_label($1); /* vazio */ }
   ;
 
 modificadoresFuncao 
@@ -171,7 +171,7 @@ stmt_list
 
 stmt 
   : while { /* vazio */ }
-  | expr IGUAL expr { /* vazio */ }
+  | expr IGUAL expr { change_assigment($1, $3); /* vazio */ }
   | for { /* vazio */ }
   | switch { /* vazio */ }
   | goto { /* vazio */ }
