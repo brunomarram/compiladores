@@ -85,6 +85,7 @@ operadorDoido "endoidou"
 {abreExpressao} { printf("%s", yytext); return ABREEXPRESSAO;}
 {fechaExpressao} { printf("%s", yytext); return FECHAEXPRESSAO;}
 
+    /* Acredito que em modificador não precisa passar nenhuma flag para representar, pois ao reconhecer o token no Yacc já deve ser capaz de inserir na tabela de símbolo de acordo com a gramática equivalente */
 {modificadorEspecial}       { printf("Foi encontrado um modificadorEspecial. LEXEMA: %s \n", yytext); return MODIFICADORESPECIAL;}
 {modificadorSinal}          { printf("Foi encontrado um modificadorSinal. LEXEMA: %s \n", yytext); return MODIFICADORSINAL;}
 {modificadorSomenteLeitura} { printf("Foi encontrado um modificadorSomenteLeitura. LEXEMA: %s \n", yytext); return MODIFICADORSOMENTELEITURA;}
@@ -130,10 +131,10 @@ operadorDoido "endoidou"
 {shiftLeft}     { printf("Foi encontrado um shiftLeft. LEXEMA: %s \n", yytext); return SHIFTLEFT;}
 {shiftRight}    { printf("Foi encontrado um shiftRight. LEXEMA: %s \n", yytext); return SHIFTRIGHT;}
 
-{letter}      { printf("%s", yytext); return LETTER;}
-{positive}    { printf("%s", yytext); return POSITIVE;}
-{negative}    { printf("%s", yytext); return NEGATIVE;}
-{decimal}     { printf("%s", yytext); return DECIMAL;}
+{letter}      { printf("%s", yytext);  /* yylval.tad_yyval.letter = yytext; */ return LETTER;}
+{positive}    { printf("%s", yytext);  /* yylval.tad_yyval.integer = yytext; */ return POSITIVE;}
+{negative}    { printf("%s", yytext);  /* yytext.tad_yyval.integer = yytext; */ return NEGATIVE;}
+{decimal}     { printf("%s", yytext);  /* yylval.tad_yyval.decimal = yytext; */ return DECIMAL;}
 
 {nl} {extern int lineno; lineno++;printf("\n%d|", lineno);}
 
