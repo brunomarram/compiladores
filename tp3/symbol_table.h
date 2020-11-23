@@ -11,16 +11,16 @@ typedef struct {
 typedef struct {
     int integer;
     float decimal;
-    char letra;
-    char *palavra;
+    char letter;
+    char *word;
 } tad_symbol_table;
 
-void install_var(int tipo, char *nome, int valor);
+void install_var(int tipo, char *nome, tad_symbol_table valor);
 
 void install_function(int tipo, char *nome, parameter *parameters);
 
 void install_label(char *nome);
 
-void change_assigment(char *nome, int valor);
+void change_assigment(char *nome, tad_symbol_table valor);
 
 tad_symbol_table get_item_value(char *nome);

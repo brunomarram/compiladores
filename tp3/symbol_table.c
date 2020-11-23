@@ -18,5 +18,6 @@ void change_assigment(char *nome, int valor) {
 
 tad_symbol_table get_item_value(char *nome) {
     // Implementar
-    return 0;
+    tad_symbol_table item;
+    return item;
 }
