@@ -6,9 +6,8 @@
 %}
 
 %union {
-  float decimal;
-  int boolean;
-  int integer;
+  float value;
+  char *id;
 }
 
 /* definitions */
