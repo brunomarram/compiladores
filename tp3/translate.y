@@ -1,6 +1,9 @@
 %{
   #include "lex.yy.c"  
   #include <stdio.h>
+  #include "symbol_table.h"
+  // #include "symbol_table.c"
+
   int yylex();
   void yyerror(char *s); // const char *s
 %}
@@ -70,7 +73,7 @@ expr
   | expr SHIFTRIGHT expr { /* vazio */ }
   | expr OPERADORDOIDO expr { /* vazio */ }
   | '(' expr ')' { /* vazio */ }
-  | term { get_item_value($1); /* vazio */ }
+  | term { /* get_item_value($<word>1); */ }
   ;
 
 case 
@@ -96,11 +99,11 @@ elseif
   ;
 
 definicaoVariavel 
-  : MODIFICADORTIPO ID IGUAL expr { install_var($1, $2, $4); /* vazio */ }
+  : MODIFICADORTIPO ID IGUAL expr { /* install_var($<integer>1, $<word>2, $<tad_symbol_table>4); */ }
   ;
 
 definicaoFuncao 
-  : MODIFICADORTIPO ID ABREEXPRESSAO tipo_parametros FECHAEXPRESSAO bloco { install_function($1, $2, $4); /* vazio */ }
+  : MODIFICADORTIPO ID ABREEXPRESSAO tipo_parametros FECHAEXPRESSAO bloco { /* install_function($<integer>1, $<word>2, $<parameter>4); */ }
   ;
 
 do : 
@@ -116,7 +119,7 @@ goto
   ;
 
 label 
-  : ID ':' { install_label($1); /* vazio */ }
+  : ID ':' { /* install_label($<word>1); */ }
   ;
 
 modificadoresFuncao 
@@ -170,7 +173,7 @@ stmt_list
 
 stmt 
   : while { /* vazio */ }
-  | expr IGUAL expr { change_assigment($1, $3); /* vazio */ }
+  | expr IGUAL expr { /* change_assigment($<word>1, $<tad_symbol_table>3); */ }
   | for { /* vazio */ }
   | switch { /* vazio */ }
   | goto { /* vazio */ }
