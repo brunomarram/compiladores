@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdio.h>
-#include "tabela.h"
+#include "symbol_table.h"
 
 void initBlockList()
 {
@@ -11,9 +11,8 @@ void initBlockList()
 
 /************  Funcao que define os erros provaveis de ocorrer **********/
 
-void handleError(int errno)
-{
-	switch (errno) {
+void handleError(int err) {
+	switch (err) {
 		case 1:
 			printf("SymbolTable Full\n");
 			break;
@@ -77,9 +76,9 @@ int searchEntryAtSymbolTable(char* symbol)
 	while (K > escopo[indexOflastestSymbolTableLevel]) {
         K--;
         if( !strcmp(symbol, SymbolTable[K].name) ) {	// identificador ja pertence aa tabela
-						handleError(3);
-						return;
-				}
+			handleError(3);
+			return;
+		}
 	}
 	SymbolTable[indexOflastElementAtSymbolTable].kind = kind;
 	SymbolTable[indexOflastElementAtSymbolTable].name = strdup(symbol);

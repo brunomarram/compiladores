@@ -2,7 +2,7 @@
   #include "lex.yy.c"  
   #include <stdio.h>
   #include "symbol_table.h"
-  // #include "symbol_table.c"
+  #include "symbol_table.c"
 
   int yylex();
   void yyerror(char *s); // const char *s
@@ -55,7 +55,6 @@ break
   : BREAK { /* vazio */ }
   ;
 
-
 positiveNegative
   : POSITIVE {$<value_int>$ = $<value_int>1;}
   | NEGATIVE {$<value_int>$ = $<value_int>1;}
@@ -64,6 +63,7 @@ positiveNegative
 decimal
   : DECIMAL {$<value_float>$ = $<value_float>1;}
   ;
+
 id 
   : ID {$<name>$ = $<name>1;}
   ;
@@ -127,21 +127,17 @@ elseif
   : ELSEIF ABREEXPRESSAO expr FECHAEXPRESSAO bloco { /* vazio */ }
   | ELSEIF ABREEXPRESSAO expr FECHAEXPRESSAO bloco elseif { /* vazio */ }
   | ELSEIF ABREEXPRESSAO expr FECHAEXPRESSAO bloco elseif ELSE bloco { /* vazio */ }
-  | /*vazio*/ { /* vazio */ }
+  | /*vazio*/
   ;
 
 
 definicaoVariavel 
-  : modificadorTipo ID IGUAL expr { global_id_name = strdup($<ident>1);installSymbolAtSymbolTable($<name>1, $<word>2); }
+  : modificadorTipo ID IGUAL expr { global_id_name = strdup($<name>1);installSymbolAtSymbolTable($<name>1, $<value_int>2); }
   ;
 
 definicaoFuncao 
-  : modificadorTipo ID ABREEXPRESSAO tipoParametros FECHAEXPRESSAO bloco { /* installSymbolAtSymbolTable($<integer>1, $<word>2); */ }
+  : modificadorTipo ID ABREEXPRESSAO tipoParametros FECHAEXPRESSAO bloco { /* installSymbolAtSymbolTable($<integer>1, $<name>2); */ }
   ;
-
-void a(int b, char c) {
-  
-}
 
 do : 
   DO ABREESCOPO stmt FECHAESCOPO WHILE ABREEXPRESSAO expr FECHAEXPRESSAO ';' { /* vazio */ }
@@ -157,7 +153,7 @@ goto
   ;
 
 label 
-  : ID ':' { /* install_label($<word>1); */ }
+  : ID ':' { /* install_label($<name>1); */ }
   ;
 
 

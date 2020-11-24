@@ -2,7 +2,7 @@ all:
 	flex lex.l
 	yacc -d translate.y
 	gcc -o translate y.tab.c
-	clear
+	#clear
 	./translate < programas/${file}
 run:
 	clear
