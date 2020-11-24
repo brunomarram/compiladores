@@ -70,7 +70,7 @@ int searchEntryAtSymbolTable(char* symbol)
 
  void installSymbolAtSymbolTable(char* symbol, int kind)
 {
-	int K	;
+	int K;
 	K = indexOflastElementAtSymbolTable;
 
 	while (K > escopo[indexOflastestSymbolTableLevel]) {

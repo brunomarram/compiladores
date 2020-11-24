@@ -46,9 +46,11 @@ typedef struct symbolTable
 {
   char *name;
   int kind;
+  union {
     int number;
     float decimal;
     char letter;
+  } valor;
 
 } symbolTable;
 

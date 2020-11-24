@@ -17,7 +17,6 @@
   int value_int;
   int tipo;
   char letter;
-
 }
 
 /* definitions */
@@ -55,26 +54,9 @@ break
   : BREAK { /* vazio */ }
   ;
 
-positiveNegative
-  : POSITIVE {$<value_int>$ = $<value_int>1;}
-  | NEGATIVE {$<value_int>$ = $<value_int>1;}
-  ;
-  
-decimal
-  : DECIMAL {$<value_float>$ = $<value_float>1;}
-  ;
-
-id 
-  : ID {$<name>$ = $<name>1;}
-  ;
-
-letter
-  : LETTER {$<letter>$ = $<letter>1;}
-  ;
-
 term
   : LETTER { }
-  | ID {}
+  | identificador {}
   | DECIMAL  {}
   | POSITIVE {}
   | NEGATIVE {}
@@ -87,8 +69,7 @@ expr
   | expr DIFERENTE expr { /* vazio */ }
   | expr EDOUBLE expr { /* vazio */ }
   | expr ELOGICO expr { /* vazio */ }
-  | expr IGUALIGUAL expr { /* vazio */ }
-  | expr MAIOROUIGUAL expr { /* vazio */ }
+  | expr IGUALIGUAL expr { /* vazio *name */ }
   | expr MAIORQUE expr { /* vazio */ }
   | expr MAIS expr { /* vazio */ }
   | expr MENOROUIGUAL expr { /* vazio */ }
@@ -101,11 +82,7 @@ expr
   | expr SHIFTRIGHT expr { /* vazio */ }
   | expr OPERADORDOIDO expr { /* vazio */ }
   | '(' expr ')' { /* vazio */ }
-  | ID { /* searchEntryAtSymbolTable($<name>1); */ }
-  | LETTER { /* vazio */ }
-  | POSITIVE { /* vazio */ }
-  | NEGATIVE { /* vazio */ }
-  | DECIMAL { /* vazio */ }
+  | term
   ;
 
 case 
@@ -127,16 +104,18 @@ elseif
   : ELSEIF ABREEXPRESSAO expr FECHAEXPRESSAO bloco { /* vazio */ }
   | ELSEIF ABREEXPRESSAO expr FECHAEXPRESSAO bloco elseif { /* vazio */ }
   | ELSEIF ABREEXPRESSAO expr FECHAEXPRESSAO bloco elseif ELSE bloco { /* vazio */ }
-  | /*vazio*/
   ;
 
+identificador
+  : ID { global_id_name = strdup($<name>1);installSymbolAtSymbolTable($<name>1, global_type); }
+  ;
 
 definicaoVariavel 
-  : modificadorTipo ID IGUAL expr { global_id_name = strdup($<name>1);installSymbolAtSymbolTable($<name>1, $<value_int>2); }
+  : modificadorTipo identificador IGUAL expr { /* vazio */ }
   ;
 
 definicaoFuncao 
-  : modificadorTipo ID ABREEXPRESSAO tipoParametros FECHAEXPRESSAO bloco { /* installSymbolAtSymbolTable($<integer>1, $<name>2); */ }
+  : modificadorTipo identificador ABREEXPRESSAO tipoParametros FECHAEXPRESSAO bloco { /* vazio */ }
   ;
 
 do : 
@@ -153,7 +132,7 @@ goto
   ;
 
 label 
-  : ID ':' { /* install_label($<name>1); */ }
+  : identificador ':' { /* vazio */ }
   ;
 
 
@@ -168,7 +147,7 @@ modificadorTipo
 
 tipoParametros 
   : tipoParametros ',' tipoParametros { /* vazio */ }
-  | modificadorTipo ID { /* vazio */ }
+  | modificadorTipo identificador { /* vazio */ }
   | /*vazio*/ { /* vazio */ }
   ;
 
@@ -185,11 +164,11 @@ return
   ;
 
 sizeof 
-  : SIZEOF ABREEXPRESSAO ID FECHAEXPRESSAO { /* vazio */ }
+  : SIZEOF ABREEXPRESSAO identificador FECHAEXPRESSAO { /* vazio */ }
   ;
 
 functionCall
-  : ID ABREEXPRESSAO parametros FECHAEXPRESSAO { /* vazio */ }
+  : identificador ABREEXPRESSAO parametros FECHAEXPRESSAO { /* vazio */ }
   ;
  
 stmtList
@@ -199,7 +178,7 @@ stmtList
 
 stmt 
   : while { /* vazio */ }
-  | expr IGUAL expr { /* change_assigment($<word>1, $<tad_symbol_table>3); */ }
+  | expr IGUAL expr { /* vazio */ }
   | for { /* vazio */ }
   | switch { /* vazio */ }
   | goto { /* vazio */ }
@@ -215,7 +194,7 @@ stmt
   ;
 
 switch 
-  : SWITCH ABREEXPRESSAO ID FECHAEXPRESSAO ABREESCOPO variosCase FECHAESCOPO { /* vazio */ }
+  : SWITCH ABREEXPRESSAO identificador FECHAEXPRESSAO ABREESCOPO variosCase FECHAESCOPO { /* vazio */ }
   ;
 
 variosCase 
@@ -247,11 +226,17 @@ int lineno = 0;
 void yyerror(char *s) { // const char *s
   // fprintf(stderr, "%s\n", s);
   printf("\n\nErro na linha: %d %s %s", lineno, s, yytext);
+  global_syntax_errors++;
 }
 
 int main() {
   initBlockList();
-  if(!yyparse()) printf("\n\nPrograma correto\n");
-  else printf("\n\nPrograma errado\n");
+  yyparse();
+
+  if(global_syntax_errors == 0) {
+    printSymbolTable();
+    printf("\n\nPrograma correto\n");
+  }
+
   return 0;
 }
