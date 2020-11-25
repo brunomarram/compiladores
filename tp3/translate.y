@@ -119,12 +119,12 @@ definicaoFuncao
   ;
 
 do : 
-  DO ABREESCOPO stmt FECHAESCOPO WHILE ABREEXPRESSAO expr FECHAEXPRESSAO ';' { /* vazio */ }
+  DO ABREESCOPO stmtLoop FECHAESCOPO WHILE ABREEXPRESSAO expr FECHAEXPRESSAO ';' { /* vazio */ }
   ;
 
 
 for 
-  : FOR ABREEXPRESSAO stmt ';' expr ';' stmt FECHAEXPRESSAO bloco { /* vazio */ }
+  : FOR ABREEXPRESSAO stmt ';' expr ';' stmt FECHAEXPRESSAO blocoLoop { /* vazio */ }
   ;
 
 goto 
@@ -176,14 +176,17 @@ stmtList
   | stmt ';' stmtList
   ;
 
+stmtListLoop
+  : stmtLoop ';'
+  | stmtLoop ';' stmtListLoop
+  ;
+
 stmt 
   : while { /* vazio */ }
   | expr IGUAL expr { /* vazio */ }
   | for { /* vazio */ }
   | switch { /* vazio */ }
   | goto { /* vazio */ }
-  | break { /* vazio */ }
-  | continue { /* vazio */ }
   | do { /* vazio */ }
   | conditional { /* vazio */ }
   | sizeof { /* vazio */ }
@@ -208,8 +211,30 @@ bloco
   | stmt
   ;
 
+blocoLoop
+  : ABREESCOPO stmtListLoop FECHAESCOPO
+  | stmtLoop
+  ;
+
+stmtLoop 
+  : while { /* vazio */ }
+  | expr IGUAL expr { /* vazio */ }
+  | for { /* vazio */ }
+  | switch { /* vazio */ }
+  | goto { /* vazio */ }
+  | break { /* vazio */ }
+  | continue { /* vazio */ }
+  | do { /* vazio */ }
+  | conditional { /* vazio */ }
+  | sizeof { /* vazio */ }
+  | functionCall { /* vazio */ }
+  | return { /* vazio */ }
+  | definicaoFuncao { /* vazio */ }
+  | definicaoVariavel { /* vazio */ }
+  ;
+
 while 
-  : WHILE ABREEXPRESSAO expr FECHAEXPRESSAO ABREESCOPO stmt FECHAESCOPO { /* vazio */ }
+  : WHILE ABREEXPRESSAO expr FECHAEXPRESSAO ABREESCOPO stmtLoop FECHAESCOPO { /* vazio */ }
   ;
 
 start_point
@@ -225,7 +250,7 @@ int lineno = 0;
 /* yacc error handler */
 void yyerror(char *s) { // const char *s
   // fprintf(stderr, "%s\n", s);
-  printf("\n\nErro na linha: %d %s %s", lineno, s, yytext);
+  printf("\n\nErro na linha: %d %s %s\n", lineno, s, yytext);
   global_syntax_errors++;
 }
 

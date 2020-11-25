@@ -1,4 +1,6 @@
 comecou
-    nacif amou vinicius cortou vitorhugo espatifou gabriel saiu danielMendes
-    naiara ficou joaoarthur viegas cortou espeto pascal estapeou thais
+    comentar CAFgabriel toma CAFbruno comentado
+    daniel CAFbruno toma 1;
+    daniel CAFgabriel toma CAFbruno amou 2;
+    nacif;
 acabou

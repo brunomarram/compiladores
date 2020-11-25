@@ -4,9 +4,9 @@
 
 void initBlockList()
 {
-	indexOflastElementAtSymbolTable = 1;    /* Considera-se que a primeira posicao da tabela eh a de indice 1. */
-	indexOflastestSymbolTableLevel = 1;           /* O primeiro indexOflastestSymbolTableLevel eh o 1 */
-	escopo[indexOflastestSymbolTableLevel] = indexOflastElementAtSymbolTable;   /* escopo[1] contem o indice do primeiro elemento */
+	indexOfLastElementAtSymbolTable = 1;    /* Considera-se que a primeira posicao da tabela eh a de indice 1. */
+	indexOfLastestSymbolTableLevel = 1;           /* O primeiro indexOfLastestSymbolTableLevel eh o 1 */
+	escopo[indexOfLastestSymbolTableLevel] = indexOfLastElementAtSymbolTable;   /* escopo[1] contem o indice do primeiro elemento */
 }
 
 /************  Funcao que define os erros provaveis de ocorrer **********/
@@ -20,7 +20,7 @@ void handleError(int err) {
 			printf("Symbol not found \n");
 			break;
 		case 3:
-			printf("Symbol already added\n");
+			// printf("Symbol already added\n");
 			break;
 		default: ;
 	}
@@ -30,19 +30,19 @@ void handleError(int err) {
 
  void startBlock()
 {
-	indexOflastestSymbolTableLevel++;
-	if (indexOflastestSymbolTableLevel > NMax)
+	indexOfLastestSymbolTableLevel++;
+	if (indexOfLastestSymbolTableLevel > NMax)
 		handleError(1);
 	else
-		escopo[indexOflastestSymbolTableLevel] = indexOflastElementAtSymbolTable;
+		escopo[indexOfLastestSymbolTableLevel] = indexOfLastElementAtSymbolTable;
 }
 
 /******************** Funcao de saida de um bloco ***********************/
 
  void endBlock()
 {
-	indexOflastElementAtSymbolTable = escopo[indexOflastestSymbolTableLevel];
-	indexOflastestSymbolTableLevel--;
+	indexOfLastElementAtSymbolTable = escopo[indexOfLastestSymbolTableLevel];
+	indexOfLastestSymbolTableLevel--;
 }
 
 /****************  Funcao que pesquisa item na tabela*******************/
@@ -51,7 +51,7 @@ void handleError(int err) {
 int searchEntryAtSymbolTable(char* symbol)
 {
 	int K; /* percorre a lista */
-	K = indexOflastElementAtSymbolTable;
+	K = indexOfLastElementAtSymbolTable;
 
 	while (K > 1)
 	{
@@ -71,19 +71,19 @@ int searchEntryAtSymbolTable(char* symbol)
  void installSymbolAtSymbolTable(char* symbol, int kind)
 {
 	int K;
-	K = indexOflastElementAtSymbolTable;
+	K = indexOfLastElementAtSymbolTable;
 
-	while (K > escopo[indexOflastestSymbolTableLevel]) {
+	while (K > escopo[indexOfLastestSymbolTableLevel]) {
         K--;
         if( !strcmp(symbol, SymbolTable[K].name) ) {	// identificador ja pertence aa tabela
 			handleError(3);
 			return;
 		}
 	}
-	SymbolTable[indexOflastElementAtSymbolTable].kind = kind;
-	SymbolTable[indexOflastElementAtSymbolTable].name = strdup(symbol);
+	SymbolTable[indexOfLastElementAtSymbolTable].kind = kind;
+	SymbolTable[indexOfLastElementAtSymbolTable].name = strdup(symbol);
 
-	indexOflastElementAtSymbolTable++;
+	indexOfLastElementAtSymbolTable++;
 }
 
 /******  Funcao que imprime alguns atributos da tabela de simbolos***********/
@@ -94,7 +94,7 @@ void printSymbolTable()
 	printf("===================\n\n");
 	printf("INDICE\t\tTIPO\t\tNOME\n");
 	printf("======\t\t====\t\t====\n");
-	for (int i = 1; i < indexOflastElementAtSymbolTable ; i++ )
+	for (int i = 1; i < indexOfLastElementAtSymbolTable ; i++ )
 	{
 		printf("%d\t\t%d\t\t%s\n", i, SymbolTable[i].kind, SymbolTable[i].name);
 	}
