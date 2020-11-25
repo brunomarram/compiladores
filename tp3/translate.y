@@ -73,6 +73,7 @@ expr
   | expr MAIORQUE expr { /* vazio */ }
   | expr MAIS expr { /* vazio */ }
   | expr MENOROUIGUAL expr { /* vazio */ }
+  | expr MAIOROUIGUAL expr { /* vazio */ }
   | expr MENORQUE expr { /* vazio */ }
   | expr MENOS expr { /* vazio */ }
   | expr PERCENTUAL expr { /* vazio */ }
@@ -182,18 +183,19 @@ stmtListLoop
   ;
 
 stmt 
-  : while { /* vazio */ }
+  : while stmt { /* vazio */ }
   | expr IGUAL expr ';' { /* vazio */ }
-  | for { /* vazio */ }
-  | switch { /* vazio */ }
+  | for stmt { /* vazio */ }
+  | switch stmt { /* vazio */ }
   | goto { /* vazio */ }
-  | do { /* vazio */ }
-  | conditional { /* vazio */ }
-  | sizeof { /* vazio */ }
-  | functionCall { /* vazio */ }
+  | do stmt { /* vazio */ }
+  | conditional stmt { /* vazio */ }
+  | sizeof stmt { /* vazio */ }
+  | functionCall stmt { /* vazio */ }
   | return ';' { /* vazio */ }
-  | definicaoFuncao { /* vazio */ }
-  | definicaoVariavel { /* vazio */ }
+  | definicaoFuncao stmt { /* vazio */ }
+  | definicaoVariavel stmt { /* vazio */ }
+  | /* usado para permitir mais de um stmt dentro de um escopo */ { /* vazio */ }
   ;
 
 switch 
@@ -217,20 +219,21 @@ blocoLoop
   ;
 
 stmtLoop 
-  : while { /* vazio */ }
+  : while stmtLoop { /* vazio */ }
   | expr IGUAL expr ';' { /* vazio */ }
-  | for { /* vazio */ }
-  | switch { /* vazio */ }
+  | for stmtLoop { /* vazio */ }
+  | switch stmtLoop { /* vazio */ }
   | goto { /* vazio */ }
   | break ';' { /* vazio */ }
   | continue ';' { /* vazio */ }
-  | do { /* vazio */ }
-  | conditional { /* vazio */ }
-  | sizeof { /* vazio */ }
-  | functionCall { /* vazio */ }
+  | do stmtLoop { /* vazio */ }
+  | conditional stmtLoop { /* vazio */ }
+  | sizeof stmtLoop { /* vazio */ }
+  | functionCall stmtLoop { /* vazio */ }
   | return ';' { /* vazio */ }
-  | definicaoFuncao { /* vazio */ }
-  | definicaoVariavel { /* vazio */ }
+  | definicaoFuncao stmtLoop { /* vazio */ }
+  | definicaoVariavel stmtLoop { /* vazio */ }
+  | /* usado para permitir mais de um stmt dentro de um escopo */ { /* vazio */ }
   ;
 
 while 
