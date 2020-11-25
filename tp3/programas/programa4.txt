@@ -4,13 +4,13 @@ comecou
     comentar Exemplo de if else if e else comentado
 
     pato baixo CAFbruno tomatoma 4 alto 
-        CAFbruno toma 4
+        CAFbruno toma CAFbruno amou 2;
     vitormudo baixo CAFbruno tomatoma 5 alto bonito
-        nancy;
+        CAFbruno toma CAFbruno amou 4;
     feio vitormudo baixo CAFbruno tomatoma 6 alto bonito
-        nacif;
+        CAFbruno toma CAFbruno amou 8;
     feio vitorputo bonito
-        nancy;
-    feio;
+        CAFbruno toma baixo CAFbruno amou 16 alto;
+    feio
     
 acabou

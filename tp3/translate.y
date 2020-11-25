@@ -81,7 +81,7 @@ expr
   | expr SHIFTLEFT expr { /* vazio */ }
   | expr SHIFTRIGHT expr { /* vazio */ }
   | expr OPERADORDOIDO expr { /* vazio */ }
-  | '(' expr ')' { /* vazio */ }
+  | ABREEXPRESSAO expr FECHAEXPRESSAO { /* vazio */ }
   | term
   ;
 
@@ -111,7 +111,7 @@ identificador
   ;
 
 definicaoVariavel 
-  : modificadorTipo identificador IGUAL expr { /* vazio */ }
+  : modificadorTipo identificador IGUAL expr ';' { /* vazio */ }
   ;
 
 definicaoFuncao 
@@ -124,7 +124,7 @@ do :
 
 
 for 
-  : FOR ABREEXPRESSAO stmt ';' expr ';' stmt FECHAEXPRESSAO blocoLoop { /* vazio */ }
+  : FOR ABREEXPRESSAO stmt expr ';' stmt FECHAEXPRESSAO blocoLoop { /* vazio */ }
   ;
 
 goto 
@@ -172,18 +172,18 @@ functionCall
   ;
  
 stmtList
-  : stmt ';'
-  | stmt ';' stmtList
+  : stmt
+  | stmt stmtList
   ;
 
 stmtListLoop
-  : stmtLoop ';'
-  | stmtLoop ';' stmtListLoop
+  : stmtLoop
+  | stmtLoop stmtListLoop
   ;
 
 stmt 
   : while { /* vazio */ }
-  | expr IGUAL expr { /* vazio */ }
+  | expr IGUAL expr ';' { /* vazio */ }
   | for { /* vazio */ }
   | switch { /* vazio */ }
   | goto { /* vazio */ }
@@ -191,7 +191,7 @@ stmt
   | conditional { /* vazio */ }
   | sizeof { /* vazio */ }
   | functionCall { /* vazio */ }
-  | return { /* vazio */ }
+  | return ';' { /* vazio */ }
   | definicaoFuncao { /* vazio */ }
   | definicaoVariavel { /* vazio */ }
   ;
@@ -218,17 +218,17 @@ blocoLoop
 
 stmtLoop 
   : while { /* vazio */ }
-  | expr IGUAL expr { /* vazio */ }
+  | expr IGUAL expr ';' { /* vazio */ }
   | for { /* vazio */ }
   | switch { /* vazio */ }
   | goto { /* vazio */ }
-  | break { /* vazio */ }
-  | continue { /* vazio */ }
+  | break ';' { /* vazio */ }
+  | continue ';' { /* vazio */ }
   | do { /* vazio */ }
   | conditional { /* vazio */ }
   | sizeof { /* vazio */ }
   | functionCall { /* vazio */ }
-  | return { /* vazio */ }
+  | return ';' { /* vazio */ }
   | definicaoFuncao { /* vazio */ }
   | definicaoVariavel { /* vazio */ }
   ;

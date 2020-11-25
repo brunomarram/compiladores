@@ -20,7 +20,7 @@ void handleError(int err) {
 			printf("Symbol not found \n");
 			break;
 		case 3:
-			// printf("Symbol already added\n");
+			printf("Symbol already added\n");
 			break;
 		default: ;
 	}
@@ -90,7 +90,7 @@ int searchEntryAtSymbolTable(char* symbol)
 
 void printSymbolTable()
 {
-	printf("\nTabela de Simbolos:\n");
+	printf("\n\nTabela de Simbolos:\n");
 	printf("===================\n\n");
 	printf("INDICE\t\tTIPO\t\tNOME\n");
 	printf("======\t\t====\t\t====\n");

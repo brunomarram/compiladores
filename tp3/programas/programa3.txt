@@ -5,14 +5,14 @@ comecou
 
     daniel CAFretornatres baixo alto bonito        
         pascal CAFbruno;
-    feio;
+    feio
 
     comentar Exemplo de IF comentado
     
     pato baixo CAFbruno tomatoma 3 alto bonito
         CAFbruno toma 5;
         pascal CAFbruno;
-    feio;
+    feio
 
     pascal CAFretornatres baixo alto;
 acabou
