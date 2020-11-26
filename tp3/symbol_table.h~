@@ -44,7 +44,7 @@ extern YYSTYPE yylval;
 extern int linha;
 extern FILE *yyin, *yyout;
 
-int searchEntryAtSymbolTable(char*);
+int searchEntryAtSymbolTable(char* symbol);
 void initBlockList(void);
 void installSymbolAtSymbolTable(char *, int );
 void printSymbolTable();
