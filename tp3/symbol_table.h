@@ -21,26 +21,10 @@
 #define TYPE_FALSE 14
   
 
-#define NMax 10 /* numero maximo de niveis */
+#define NMax 10
 
-#define MAX_NOME 50		/* tamanho maximo para um string */
-#define MAX_PARAMETROS 10	/* limite para o numero de parametros em um procedimento */
-#define TAB_SIZE 100		/* tamanho da tabela de simbolos */
+#define TABLE_SIZE 10
 
-typedef struct procedimento_str {
-    char nome[MAX_NOME];
-    int parametro[MAX_PARAMETROS];
-    int modo[MAX_PARAMETROS];
-    int numero_parametros;
-    int tipo_retornado;
-} procedimento_t;
-
-typedef struct tipo_definido_str {
-    char nome[MAX_NOME];
-    int limites[50][2];
-    int dimensoes;
-    int tipo_apontado;
-} tipo_definido_t;
 
 typedef struct symbolTable
 {
@@ -54,13 +38,12 @@ typedef struct symbolTable
 
 } symbolTable;
 
-symbolTable SymbolTable[TAB_SIZE];
+symbolTable SymbolTable[TABLE_SIZE];
 
 extern YYSTYPE yylval;
 extern int linha;
 extern FILE *yyin, *yyout;
 
-//Funcoes da TS
 void initBlockList(void);
 int  Recupera_Entrada(char *);
 void installSymbolAtSymbolTable(char *, int );
@@ -69,9 +52,8 @@ void handleError(int);
 void startBlock(void);
 void endBlock(void);
 
-// Tabela de Simbolos
 int escopo[10];
-int indexOfLastestSymbolTableLevel;    /* inteiro que contem o numero do indexOflastestSymbolTableLevel atual */
-int indexOfLastElementAtSymbolTable;     		/* inteiro que contem o indice do ultimo elemento da Tabela de Simbolos */
+int indexOfLastestSymbolTableLevel;
+int indexOfLastElementAtSymbolTable;
 
 #endif
