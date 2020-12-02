@@ -22,5 +22,6 @@ instalarLex:
 instalarYacc:
 	sudo apt-get install bison
 installLLVM:
-	sudo apt-get install llvm -y
-	sudo apt-get install clang -y
+	sudo apt-get install llvm
+installClang:
+	sudo apt-get install clang
