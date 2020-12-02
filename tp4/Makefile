@@ -2,12 +2,15 @@ all:
 	flex lex.l
 	yacc -d translate.y
 	gcc -o translate y.tab.c
-	#clear
-	./translate < programas/${file}
+	# clear
+	# ./translate < programas/${file}
 run:
 	clear
 	./translate < programas/${file}
 llvm:
+	flex lex.l
+	yacc -d translate.y
+	gcc -o translate y.tab.c
 	clang y.tab.c -emit-llvm -S -c -o florestroll.ll
 	llvm-as florestroll.ll -o florestroll.bc
 	llc florestroll.bc -o florestroll.s
