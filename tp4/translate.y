@@ -258,12 +258,13 @@ void yyerror(char *s) { // const char *s
 }
 
 int main() {
+  printf("\n--- PROGRAMA EM FLORESTROLL ---\n");
   initBlockList();
   yyparse();
 
   if(global_syntax_errors == 0) {
     printSymbolTable();
-    printf("\n\nPrograma correto\n");
+    printf("\nPrograma correto\n");
   }
 
   return 0;

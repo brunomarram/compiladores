@@ -74,7 +74,7 @@ int searchEntryAtSymbolTable(char* symbol)
 
 void printSymbolTable()
 {
-	printf("Tabela de Simbolos:\n");
+	printf("\n\nTabela de Simbolos:\n");
 	printf("Index\t	Tipo\tNome\n");
 	for (int i = 1; i < indexOfLastElementAtSymbolTable ; i++ )
 	{
