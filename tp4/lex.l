@@ -5,6 +5,7 @@
     /*codigo colocado aqui aparece no arquivo gerado pelo flex*/ 
     #include <stdio.h>
     #include "y.tab.h"
+    #include "symbol_table.h"
 %}
 
 /* definicoes regulares */ 
@@ -75,7 +76,7 @@ shiftRight "direitou"
 operadorDoido "endoidou"
 
 %% 
-{id}  { printf("%s", yytext); yylval.name = strdup(yytext); return ID;}
+{id}  { printf("%s", yytext); yylval.a.name = strdup(yytext); return ID;}
 
 {start}    { printf("%s", yytext); return START;}
 {end}   { printf("%s", yytext); return END;}
@@ -134,10 +135,10 @@ operadorDoido "endoidou"
 {shiftLeft}     { printf("%s", yytext); return SHIFTLEFT;}
 {shiftRight}    { printf("%s", yytext); return SHIFTRIGHT;}
 
-{letter}      { printf("%s", yytext); yylval.letter = yytext[1]; return LETTER;}
-{positive}    { printf("%s", yytext); yylval.value_int = atoi(yytext) ;return POSITIVE;}
-{negative}    { printf("%s", yytext); yylval.value_int = atoi(yytext) ; return NEGATIVE;}
-{decimal}     { printf("%s", yytext); yylval.value_float = atof(yytext) ;return DECIMAL;}
+{letter}      { printf("%s", yytext); yylval.a.letter = yytext[1]; yylval.a.type = TYPE_CHAR; return LETTER;}
+{positive}    { printf("%s", yytext); yylval.a.value_int = atoi(yytext) ; yylval.a.type = TYPE_INT; return POSITIVE;}
+{negative}    { printf("%s", yytext); yylval.a.value_int = atoi(yytext) ; yylval.a.type = TYPE_INT; return NEGATIVE;}
+{decimal}     { printf("%s", yytext); yylval.a.value_float = atof(yytext) ; yylval.a.type = TYPE_FLOAT; return DECIMAL;}
 
 {nl} {extern int lineno; lineno++;printf("\n%d|", lineno);}
 

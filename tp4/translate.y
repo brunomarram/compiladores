@@ -9,14 +9,45 @@
   int global_type;
   char *global_id_name;
   int global_syntax_errors = 0;
+
+  typedef struct pkg{
+    char *name;
+    float value_float;
+    int value_int;
+    int type;
+    char letter;
+  }pkg;
+
+  void chama(pkg* result, pkg* id, pkg* a, pkg* b, char operacao) {
+    global_type = getTypeAtSymbolTable(id->name, a->type, b->type);
+
+    switch(global_type) {
+      case 2:
+        result->value_int = a->value_int * b->value_int;
+        break;
+      case 3:
+        result->letter = a->letter * b->letter;
+        break;
+      case 5:
+        result->value_float = a->value_float * b->value_float;
+        break;
+      default:
+        printf("Operação de tipos inválida\n");
+        break;
+    }
+
+    printf("|| %d ", result->value_int);
+  }
 %}
 
 %union {
-  char *name;
-  float value_float;
-  int value_int;
-  int tipo;
-  char letter;
+  struct {
+    char *name;
+    float value_float;
+    int value_int;
+    int type;
+    char letter;
+  }a;
 }
 
 /* definitions */
@@ -38,11 +69,11 @@
 %token CONST
 
 /*tokens operadores*/
-%token <name> ID
-%token <letter> LETTER
-%token <value_int> POSITIVE
-%token <value_int> NEGATIVE
-%token <value_float> DECIMAL
+%token <a.name> ID
+%token <a.letter> LETTER
+%token <a.value_int> POSITIVE
+%token <a.value_int> NEGATIVE
+%token <a.value_float> DECIMAL
 %token DEFAULT IF ELSE ELSEIF BREAK CASE CONTINUE RETURN SWITCH
 %token DO WHILE FOR GOTO
 %token SIZEOF
@@ -63,26 +94,26 @@ term
   ;
 
 expr 
-  : expr ASTERISCO expr { /* vazio */ }
-  | expr BARRA expr { /* vazio */ }
-  | expr CHAPEU expr { /* vazio */ }
-  | expr DIFERENTE expr { /* vazio */ }
-  | expr EDOUBLE expr { /* vazio */ }
-  | expr ELOGICO expr { /* vazio */ }
+  : expr ASTERISCO expr { chama(&$<a>$, &$<a>0, &$<a>1, &$<a>3, '*'); }
+  | expr BARRA expr {  }
+  | expr CHAPEU expr {  }
+  | expr DIFERENTE expr {  }
+  | expr EDOUBLE expr {  }
+  | expr ELOGICO expr {  }
   | expr IGUALIGUAL expr { /* vazio *name */ }
-  | expr MAIORQUE expr { /* vazio */ }
-  | expr MAIS expr { /* vazio */ }
-  | expr MENOROUIGUAL expr { /* vazio */ }
-  | expr MAIOROUIGUAL expr { /* vazio */ }
-  | expr MENORQUE expr { /* vazio */ }
-  | expr MENOS expr { /* vazio */ }
-  | expr PERCENTUAL expr { /* vazio */ }
-  | expr PIPE expr { /* vazio */ }
-  | expr PIPEDOUBLE expr { /* vazio */ }
-  | expr SHIFTLEFT expr { /* vazio */ }
-  | expr SHIFTRIGHT expr { /* vazio */ }
-  | expr OPERADORDOIDO expr { /* vazio */ }
-  | ABREEXPRESSAO expr FECHAEXPRESSAO { /* vazio */ }
+  | expr MAIORQUE expr {  }
+  | expr MAIS expr {  }
+  | expr MENOROUIGUAL expr {  }
+  | expr MAIOROUIGUAL expr {  }
+  | expr MENORQUE expr {  }
+  | expr MENOS expr {  }
+  | expr PERCENTUAL expr {  }
+  | expr PIPE expr {  }
+  | expr PIPEDOUBLE expr {  }
+  | expr SHIFTLEFT expr {  }
+  | expr SHIFTRIGHT expr {  }
+  | expr OPERADORDOIDO expr {  }
+  | ABREEXPRESSAO expr FECHAEXPRESSAO {  }
   | term
   ;
 
@@ -108,7 +139,7 @@ elseif
   ;
 
 identificador
-  : ID { global_id_name = strdup($<name>1);installSymbolAtSymbolTable($<name>1, global_type); }
+  : ID { global_id_name = strdup($<a.name>1);installSymbolAtSymbolTable($<a.name>1, global_type); }
   ;
 
 definicaoVariavel 
@@ -184,7 +215,7 @@ stmtListLoop
 
 stmt 
   : while stmt { /* vazio */ }
-  | expr IGUAL expr ';' { /* vazio */ }
+  | identificador IGUAL expr ';' { /* vazio */ }
   | for stmt { /* vazio */ }
   | switch stmt { /* vazio */ }
   | goto { /* vazio */ }

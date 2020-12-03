@@ -1,0 +1,6 @@
+comecou
+    daniel CAFgabriel toma 4;
+
+    CAFgabriel toma 2 amou 3;
+
+acabou

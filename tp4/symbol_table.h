@@ -51,6 +51,7 @@ void printSymbolTable();
 void handleError(int);
 void startBlock(void);
 void endBlock(void);
+int getTypeAtSymbolTable(char*,int, int);
 
 int escopo[10];
 int indexOfLastestSymbolTableLevel;

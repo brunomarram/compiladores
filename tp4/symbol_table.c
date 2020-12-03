@@ -13,13 +13,10 @@ void initBlockList()
 void handleError(int err) {
 	switch (err) {
 		case 1:
-			printf("SymbolTable Full\n");
 			break;
 		case 2:
-			printf("Symbol not found \n");
 			break;
 		case 3:
-			printf("Symbol already added\n");
 			break;
 		default: ;
 	}
@@ -54,6 +51,7 @@ int searchEntryAtSymbolTable(char* symbol)
 	}
 	return 0;
 }
+
  void installSymbolAtSymbolTable(char* symbol, int kind)
 {
 	int K;
@@ -80,4 +78,20 @@ void printSymbolTable()
 	{
 		printf("%d\t\t%d\t\t%s\n", i, SymbolTable[i].kind, SymbolTable[i].name);
 	}
+}
+
+int getTypeAtSymbolTable(char* symbol, int parameter1, int parameter2)
+{
+	int K, type;
+	K = indexOfLastElementAtSymbolTable;
+
+	while (K > 1)
+	{
+        K--;
+        if( !strcmp(symbol, SymbolTable[K].name ) ) type = SymbolTable[K].kind;
+	}
+
+	if(type == parameter1 && type == parameter2) return type;
+	
+	return 0;
 }
