@@ -40,7 +40,6 @@ typedef struct symbolTable
 
 symbolTable SymbolTable[TABLE_SIZE];
 
-extern YYSTYPE yylval;
 extern int linha;
 extern FILE *yyin, *yyout;
 

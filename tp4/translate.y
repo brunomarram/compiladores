@@ -1,8 +1,27 @@
 %{
+
+  typedef union YYSTYPE {
+    struct pkg 
+    {     
+        char *name;
+      float value_float;
+      int value_int;
+      int type;
+      char letter; 
+    } pkg;
+
+
+  }YYSTYPE;
+
+
+  #define YYSTYPE YYSTYPE
+
   #include "lex.yy.c"  
   #include <stdio.h>
   #include "symbol_table.h"
   #include "symbol_table.c"
+
+
 
   int yylex();
   void yyerror(char *s); // const char *s
@@ -10,45 +29,61 @@
   char *global_id_name;
   int global_syntax_errors = 0;
 
-  typedef struct pkg{
-    char *name;
-    float value_float;
-    int value_int;
-    int type;
-    char letter;
-  }pkg;
+  void printPkg(YYSTYPE *a)
+  {
+    printf("nome: %s\n", a->pkg.name);
+    printf("value float: %f\n", a->pkg.value_float);
+    printf("value int: %f\n", a->pkg.value_int);
+    printf("type : %d\n", a->pkg.type);
+    printf("letter %c \n", a->pkg.letter);
 
-  void chama(pkg* result, pkg* id, pkg* a, pkg* b, char operacao) {
-    global_type = getTypeAtSymbolTable(id->name, a->type, b->type);
+  }
 
-    switch(global_type) {
+  void multiplica(YYSTYPE *result, YYSTYPE *a, YYSTYPE *b) {
+    if(a->pkg.type == b->pkg.type) {
+
+      if(a->pkg.type == TYPE_INT) {
+
+        result->pkg.type = TYPE_INT;
+        result->pkg.value_int = a->pkg.value_int * b->pkg.value_int;
+      }
+    }
+    else {
+      
+      result->pkg.type = -1;
+    }
+  }
+  
+
+
+  void chama(YYSTYPE* result, YYSTYPE* id, YYSTYPE* a, YYSTYPE* b, void (operacao)(YYSTYPE *result, YYSTYPE *a, YYSTYPE *b)) {
+    global_type = getTypeAtSymbolTable(id->pkg.name, a->pkg.type, b->pkg.type);
+  
+    YYSTYPE resultOp;
+    multiplica(&resultOp, a,b);
+    if(resultOp.pkg.type == -1) {
+      printf("Operação binária com tipos diferentes\n");
+      exit(-1);
+    }
+    switch(global_type) { // Não é para ver o tipo em a->pkg.type ou b->pkg.type?
+
       case 2:
-        result->value_int = a->value_int * b->value_int;
+        result->pkg.value_int = a->pkg.value_int * b->pkg.value_int;
         break;
       case 3:
-        result->letter = a->letter * b->letter;
+        result->pkg.letter = a->pkg.letter * b->pkg.letter;
         break;
       case 5:
-        result->value_float = a->value_float * b->value_float;
+        result->pkg.value_float = a->pkg.value_float * b->pkg.value_float;
         break;
       default:
         printf("Operação de tipos inválida\n");
         break;
     }
 
-    printf("|| %d ", result->value_int);
+    printf("|| %d ", result->pkg.value_int);
   }
 %}
-
-%union {
-  struct {
-    char *name;
-    float value_float;
-    int value_int;
-    int type;
-    char letter;
-  }a;
-}
 
 /* definitions */
 %token START END
@@ -94,7 +129,7 @@ term
   ;
 
 expr 
-  : expr ASTERISCO expr { chama(&$<a>$, &$<a>0, &$<a>1, &$<a>3, '*'); }
+  : expr ASTERISCO expr { chama(&$<pkg>$, &$<pkg>0, &$<pkg>1, &$<pkg>3, multiplica); }
   | expr BARRA expr {  }
   | expr CHAPEU expr {  }
   | expr DIFERENTE expr {  }
@@ -139,7 +174,7 @@ elseif
   ;
 
 identificador
-  : ID { global_id_name = strdup($<a.name>1);installSymbolAtSymbolTable($<a.name>1, global_type); }
+  : ID { global_id_name = strdup($<pkg.name>1);installSymbolAtSymbolTable($<pkg.name>1, global_type); }
   ;
 
 definicaoVariavel 
