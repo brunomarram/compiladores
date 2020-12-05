@@ -1,4 +1,5 @@
 comecou
     daniel CAFgabriel toma 5;
+    
     CAFgabriel toma baixo 5 amou 4 alto amou 2;
 acabou

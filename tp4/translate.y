@@ -21,7 +21,7 @@
   #include "symbol_table.h"
   #include "symbol_table.c"
 
-
+  int proxIR = 0;
 
   int yylex();
   void yyerror(char *s); // const char *s
@@ -40,7 +40,8 @@
 
   void gerar(YYSTYPE *identificador, YYSTYPE *a)
   {
-    printf("%s = ", identificador->pkg.name);
+    int symbolTableID = searchEntryAtSymbolTable(identificador->pkg.name);
+    printf("t%d = ", SymbolTable[symbolTableID].idIR);
     if(a->pkg.type == TYPE_CHAR)
       printf("%c", a->pkg.letter);
 
@@ -267,9 +268,9 @@ assigment
 
 stmt 
   : while stmt { /* vazio */ }
-  | definicaoFuncao assigment { /* vazio */ }
-  | definicaoVariavel assigment {  }
-  | assigment ';' { }
+  | definicaoFuncao stmt { /* vazio */ }
+  | definicaoVariavel stmt {  }
+  | assigment stmt { }
   | for stmt { /* vazio */ }
   | switch stmt { /* vazio */ }
   | goto { /* vazio */ }
@@ -303,9 +304,9 @@ blocoLoop
 
 stmtLoop 
   : while stmtLoop { /* vazio */ }
-  | definicaoFuncao assigment { /* vazio */ }
-  | definicaoVariavel assigment { /* vazio */ }
-  | assigment ';'
+  | definicaoFuncao stmtLoop { /* vazio */ }
+  | definicaoVariavel stmtLoop { /* vazio */ }
+  | assigment stmt
   | for stmtLoop { /* vazio */ }
   | switch stmtLoop { /* vazio */ }
   | goto { /* vazio */ }

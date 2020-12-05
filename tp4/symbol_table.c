@@ -66,7 +66,8 @@ int searchEntryAtSymbolTable(char* symbol)
 	}
 	SymbolTable[indexOfLastElementAtSymbolTable].kind = kind;
 	SymbolTable[indexOfLastElementAtSymbolTable].name = strdup(symbol);
-
+	SymbolTable[indexOfLastElementAtSymbolTable].idIR = proxIR;
+	proxIR += 1;
 	indexOfLastElementAtSymbolTable++;
 }
 
