@@ -76,73 +76,73 @@ shiftRight "direitou"
 operadorDoido "endoidou"
 
 %% 
-{id}  { printf("%s", yytext); yylval.pkg.name = strdup(yytext); return ID;}
+{id}  { yylval.pkg.name = strdup(yytext); return ID;}
 
-{start}    { printf("%s", yytext); return START;}
-{end}   { printf("%s", yytext); return END;}
+{start}    { return START;}
+{end}   { return END;}
 
-{abreEscopo}    { printf("%s", yytext); return ABREESCOPO;}
-{fechaEscopo}   { printf("%s", yytext); return FECHAESCOPO;}
+{abreEscopo}    { return ABREESCOPO;}
+{fechaEscopo}   { return FECHAESCOPO;}
 
-{abreExpressao} { printf("%s", yytext); return ABREEXPRESSAO;}
-{fechaExpressao} { printf("%s", yytext); return FECHAEXPRESSAO;}
+{abreExpressao} { return ABREEXPRESSAO;}
+{fechaExpressao} { return FECHAEXPRESSAO;}
 
  
-{void}      { printf("%s", yytext); return VOID;}
+{void}      { return VOID;}
 
-{char}      { printf("%s", yytext); return CHAR; }
-{float}     { printf("%s", yytext); return FLOAT;}
-{double}    { printf("%s", yytext); return DOUBLE;}
-{int}       { printf("%s", yytext); return INT;}
+{char}      { return CHAR; }
+{float}     { return FLOAT;}
+{double}    { return DOUBLE;}
+{int}       { return INT;}
 
-{true}      { printf("%s", yytext); return TRUE;}
-{false}     { printf("%s", yytext); return FALSE;}
-{break}     { printf("%s", yytext); return BREAK;}
-{case}      { printf("%s", yytext); return CASE;}
-{continue}  { printf("%s", yytext); return CONTINUE;}
-{do}        { printf("%s", yytext); return DO;}
-{else}      { printf("%s", yytext); return ELSE;}
-{elseif}    { printf("%s", yytext); return ELSEIF;}
-{for}       { printf("%s", yytext); return FOR;}
-{goto}      { printf("%s", yytext); return GOTO;}
-{if}        { printf("%s", yytext); return IF;}
-{return}    { printf("%s", yytext); return RETURN;}
-{sizeof}    { printf("%s", yytext); return SIZEOF;}
-{switch}    { printf("%s", yytext); return SWITCH;}
-{while}     { printf("%s", yytext); return WHILE;}
+{true}      { return TRUE;}
+{false}     { return FALSE;}
+{break}     { return BREAK;}
+{case}      { return CASE;}
+{continue}  { return CONTINUE;}
+{do}        { return DO;}
+{else}      { return ELSE;}
+{elseif}    { return ELSEIF;}
+{for}       { return FOR;}
+{goto}      { return GOTO;}
+{if}        { return IF;}
+{return}    { return RETURN;}
+{sizeof}    { return SIZEOF;}
+{switch}    { return SWITCH;}
+{while}     { return WHILE;}
 
-":"          {printf("%s", yytext); return(':');}
-";"          {printf("%s", yytext); return(';');}
-","          {printf("%s", yytext); return(',');}
+":"          {return(':');}
+";"          {return(';');}
+","          {return(',');}
 
-{asterisco}     { printf("%s", yytext); return ASTERISCO;}
-{barra}         { printf("%s", yytext); return BARRA;}
-{chapeu}        { printf("%s", yytext); return CHAPEU;}
-{diferente}     { printf("%s", yytext); return DIFERENTE;}
-{eDouble}       { printf("%s", yytext); return EDOUBLE;}
-{eLogico}       { printf("%s", yytext); return ELOGICO;}
-{igual}         { printf("%s", yytext); return IGUAL;}
-{igualIgual}    { printf("%s", yytext); return IGUALIGUAL;}
-{maiorOuIgual}  { printf("%s", yytext); return MAIOROUIGUAL;}
-{maiorQue}      { printf("%s", yytext); return MAIORQUE;}
-{mais}          { printf("%s", yytext); return MAIS;}
-{menorOuIgual}  { printf("%s", yytext); return MENOROUIGUAL;}
-{menorQue}      { printf("%s", yytext); return MENORQUE;}
-{menos}         { printf("%s", yytext); return MENOS;}
-{percentual}    { printf("%s", yytext); return PERCENTUAL;}
-{pipe}          { printf("%s", yytext); return PIPE;}
-{pipeDouble}    { printf("%s", yytext); return PIPEDOUBLE;}
-{shiftLeft}     { printf("%s", yytext); return SHIFTLEFT;}
-{shiftRight}    { printf("%s", yytext); return SHIFTRIGHT;}
+{asterisco}     { return ASTERISCO;}
+{barra}         { return BARRA;}
+{chapeu}        { return CHAPEU;}
+{diferente}     { return DIFERENTE;}
+{eDouble}       { return EDOUBLE;}
+{eLogico}       { return ELOGICO;}
+{igual}         { return IGUAL;}
+{igualIgual}    { return IGUALIGUAL;}
+{maiorOuIgual}  { return MAIOROUIGUAL;}
+{maiorQue}      { return MAIORQUE;}
+{mais}          { return MAIS;}
+{menorOuIgual}  { return MENOROUIGUAL;}
+{menorQue}      { return MENORQUE;}
+{menos}         { return MENOS;}
+{percentual}    { return PERCENTUAL;}
+{pipe}          { return PIPE;}
+{pipeDouble}    { return PIPEDOUBLE;}
+{shiftLeft}     { return SHIFTLEFT;}
+{shiftRight}    { return SHIFTRIGHT;}
 
-{letter}      { printf("%s", yytext); yylval.pkg.letter = yytext[1]; yylval.pkg.type = TYPE_CHAR; return LETTER;}
-{positive}    { printf("%s", yytext); yylval.pkg.value_int = atoi(yytext) ; yylval.pkg.type = TYPE_INT; return POSITIVE;}
-{negative}    { printf("%s", yytext); yylval.pkg.value_int = atoi(yytext) ; yylval.pkg.type = TYPE_INT; return NEGATIVE;}
-{decimal}     { printf("%s", yytext); yylval.pkg.value_float = atof(yytext) ; yylval.pkg.type = TYPE_FLOAT; return DECIMAL;}
+{letter}      { yylval.pkg.letter = yytext[1]; yylval.pkg.type = TYPE_CHAR; return LETTER;}
+{positive}    { yylval.pkg.value_int = atoi(yytext) ; yylval.pkg.type = TYPE_INT; return POSITIVE;}
+{negative}    { yylval.pkg.value_int = atoi(yytext) ; yylval.pkg.type = TYPE_INT; return NEGATIVE;}
+{decimal}     { yylval.pkg.value_float = atof(yytext) ; yylval.pkg.type = TYPE_FLOAT; return DECIMAL;}
 
-{nl} {extern int lineno; lineno++;printf("\n%d|", lineno);}
+{nl} {extern int lineno; lineno++;}
 
-{ws}        {printf("\t");} 
+{ws}        {} 
 {comment}   {/*nenhuma acao e nenhum retorno*/}
 %%
 

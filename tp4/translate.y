@@ -28,7 +28,6 @@
   int global_type;
   char *global_id_name;
   int global_syntax_errors = 0;
-
   void printPkg(YYSTYPE *a)
   {
     printf("nome: %s\n", a->pkg.name);
@@ -37,6 +36,22 @@
     printf("type : %d\n", a->pkg.type);
     printf("letter %c \n", a->pkg.letter);
 
+  }
+
+  void gerar(YYSTYPE *identificador, YYSTYPE *a)
+  {
+    printf("%s = ", identificador->pkg.name);
+    if(a->pkg.type == TYPE_CHAR)
+      printf("%c", a->pkg.letter);
+
+    else if(a->pkg.type == TYPE_INT)
+      printf("%d", a->pkg.value_int);
+    
+    else
+      printf("%f", a->pkg.value_float);
+
+
+    printf("\n");
   }
 
   void multiplica(YYSTYPE *result, YYSTYPE *a, YYSTYPE *b) {
@@ -81,7 +96,6 @@
         break;
     }
 
-    printf("|| %d ", result->pkg.value_int);
   }
 %}
 
@@ -129,8 +143,9 @@ term
   ;
 
 expr 
-  : expr ASTERISCO expr { chama(&$<pkg>$, &$<pkg>0, &$<pkg>1, &$<pkg>3, multiplica); }
-  | expr BARRA expr {  }
+  : ABREEXPRESSAO expr FECHAEXPRESSAO {  }
+  | expr ASTERISCO expr { chama(&$<pkg>$, &$<pkg>0, &$<pkg>1, &$<pkg>3, multiplica); }
+  | expr BARRA expr {  }  
   | expr CHAPEU expr {  }
   | expr DIFERENTE expr {  }
   | expr EDOUBLE expr {  }
@@ -148,7 +163,6 @@ expr
   | expr SHIFTLEFT expr {  }
   | expr SHIFTRIGHT expr {  }
   | expr OPERADORDOIDO expr {  }
-  | ABREEXPRESSAO expr FECHAEXPRESSAO {  }
   | term
   ;
 
@@ -162,7 +176,7 @@ continue
   ;
 
 conditional 
-  : IF ABREEXPRESSAO expr FECHAEXPRESSAO bloco { /* vazio */ }
+  : IF ABREEXPRESSAO expr FECHAEXPRESSAO bloco {}
   | IF ABREEXPRESSAO expr FECHAEXPRESSAO bloco elseif { /* vazio */ }
   | IF ABREEXPRESSAO expr FECHAEXPRESSAO bloco ELSE bloco { /* vazio */ }
   ;
@@ -178,7 +192,7 @@ identificador
   ;
 
 definicaoVariavel 
-  : modificadorTipo identificador IGUAL expr ';' { /* vazio */ }
+  : modificadorTipo identificador IGUAL expr ';' {  }
   ;
 
 definicaoFuncao 
@@ -248,9 +262,14 @@ stmtListLoop
   | stmtLoop stmtListLoop
   ;
 
+assigment
+  : identificador IGUAL expr ';' { gerar(&$<pkg>1, &$<pkg>2); };
+
 stmt 
   : while stmt { /* vazio */ }
-  | identificador IGUAL expr ';' { /* vazio */ }
+  | definicaoFuncao assigment { /* vazio */ }
+  | definicaoVariavel assigment {  }
+  | assigment ';' { }
   | for stmt { /* vazio */ }
   | switch stmt { /* vazio */ }
   | goto { /* vazio */ }
@@ -259,8 +278,6 @@ stmt
   | sizeof stmt { /* vazio */ }
   | functionCall stmt { /* vazio */ }
   | return ';' { /* vazio */ }
-  | definicaoFuncao stmt { /* vazio */ }
-  | definicaoVariavel stmt { /* vazio */ }
   | /* usado para permitir mais de um stmt dentro de um escopo */ { /* vazio */ }
   ;
 
@@ -286,7 +303,9 @@ blocoLoop
 
 stmtLoop 
   : while stmtLoop { /* vazio */ }
-  | expr IGUAL expr ';' { /* vazio */ }
+  | definicaoFuncao assigment { /* vazio */ }
+  | definicaoVariavel assigment { /* vazio */ }
+  | assigment ';'
   | for stmtLoop { /* vazio */ }
   | switch stmtLoop { /* vazio */ }
   | goto { /* vazio */ }
@@ -297,8 +316,6 @@ stmtLoop
   | sizeof stmtLoop { /* vazio */ }
   | functionCall stmtLoop { /* vazio */ }
   | return ';' { /* vazio */ }
-  | definicaoFuncao stmtLoop { /* vazio */ }
-  | definicaoVariavel stmtLoop { /* vazio */ }
   | /* usado para permitir mais de um stmt dentro de um escopo */ { /* vazio */ }
   ;
 
@@ -324,12 +341,10 @@ void yyerror(char *s) { // const char *s
 }
 
 int main() {
-  printf("\n--- PROGRAMA EM FLORESTROLL ---\n");
   initBlockList();
   yyparse();
 
   if(global_syntax_errors == 0) {
-    printSymbolTable();
     printf("\nPrograma correto\n");
   }
 
