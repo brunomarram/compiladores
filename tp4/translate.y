@@ -55,7 +55,7 @@ struct expr exprTable[20];
 char addToTable(struct pkg *a){
     temp++;
     printf("%d\n",proxExprId);
-    exprTable[proxExprId].operand1 =a->name;
+    exprTable[proxExprId].operand1 = a->name;
     printf("asds %s \n", a->name);
     // exprTable[proxExprId].operand2 = b;
     // exprTable[proxExprId].operator = o;
