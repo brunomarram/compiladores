@@ -1,30 +1,31 @@
 %{
 
-  typedef union YYSTYPE {
-    struct pkg 
-    {     
-        char *name;
-      float value_float;
-      int value_int;
-      int type;
-      char letter; 
-    } pkg;
+typedef union YYSTYPE {
+struct pkg 
+{     
+	char *name;
+	float value_float;
+	int value_int;
+	int type;
+	char letter; 
+} pkg;
 
 
-  }YYSTYPE;
+}YYSTYPE;
 
 
-  #define YYSTYPE YYSTYPE
-
+  #include "yystype.h"
   #include "lex.yy.c"  
   #include <stdio.h>
   #include "symbol_table.h"
   #include "symbol_table.c"
 
   int proxIR = 0;
+  int proxExprId = 0;
+  int temp = 0;
 
   int yylex();
-  void yyerror(char *s); // const char *s
+  void yyerror(char *s); 
   int global_type;
   char *global_id_name;
   int global_syntax_errors = 0;
@@ -38,21 +39,51 @@
 
   }
 
+struct expr{
+
+	char *operand1;
+	char operand2;
+	char operator;
+	char result;
+};
+
+struct expr exprTable[20]; 
+
+
+char addToTable(struct pkg *a){
+    temp++;
+    printf("%d\n",proxExprId);
+    exprTable[proxExprId].operand1 =a->name;
+    printf("asds %s \n", a->name);
+    // exprTable[proxExprId].operand2 = b;
+    // exprTable[proxExprId].operator = o;
+    // exprTable[proxExprId].result = proxExprId;
+    proxExprId += 1;
+    return temp;
+}
+
+
   void gerar(YYSTYPE *identificador, YYSTYPE *a)
   {
-    int symbolTableID = searchEntryAtSymbolTable(identificador->pkg.name);
-    printf("t%d = ", SymbolTable[symbolTableID].idIR);
-    if(a->pkg.type == TYPE_CHAR)
-      printf("%c", a->pkg.letter);
+    // printf("identificador.name(gerar) %s\n", identificador->pkg.name);
+    // printf("a.name(gerar) %d\n", a->pkg.name);
+    // printf("a.value_int(gerar) %d\n", a->pkg.value_int);
+    // int symbolTableID = searchEntryAtSymbolTable(identificador->pkg.name);
+    //  printf("symboltable[identicador].name(gerar) %s\n", identificador->pkg.name);
+    // printf("t%s = \n", identificador->pkg.name);
+    // printf("t%s = ", SymbolTable[symbolTableID].name);
+    // printf("t%d = ", SymbolTable[symbolTableID].idIR);
+    // if(a->pkg.type == TYPE_CHAR)
+    //   printf("%c", a->pkg.letter);
 
-    else if(a->pkg.type == TYPE_INT)
-      printf("%d", a->pkg.value_int);
+    // else if(a->pkg.type == TYPE_INT)
+    //   printf("%d", a->pkg.value_int);
     
-    else
-      printf("%f", a->pkg.value_float);
+    // else
+    //   printf("%f", a->pkg.value_float);
 
 
-    printf("\n");
+    // printf("\n");
   }
 
   void multiplica(YYSTYPE *result, YYSTYPE *a, YYSTYPE *b) {
@@ -145,7 +176,7 @@ term
 
 expr 
   : ABREEXPRESSAO expr FECHAEXPRESSAO {  }
-  | expr ASTERISCO expr { chama(&$<pkg>$, &$<pkg>0, &$<pkg>1, &$<pkg>3, multiplica); }
+  | expr ASTERISCO expr { addToTable(&$<pkg>1); }
   | expr BARRA expr {  }  
   | expr CHAPEU expr {  }
   | expr DIFERENTE expr {  }
@@ -189,11 +220,11 @@ elseif
   ;
 
 identificador
-  : ID { global_id_name = strdup($<pkg.name>1);installSymbolAtSymbolTable($<pkg.name>1, global_type); }
+  : ID { global_id_name = strdup($<pkg.name>1);installSymbolAtSymbolTable($<pkg.name>1, global_type); } 
   ;
 
 definicaoVariavel 
-  : modificadorTipo identificador IGUAL expr ';' {  }
+  : modificadorTipo identificador IGUAL expr ';' { addToTable(&$<pkg>1);}
   ;
 
 definicaoFuncao 
@@ -264,7 +295,7 @@ stmtListLoop
   ;
 
 assigment
-  : identificador IGUAL expr ';' { gerar(&$<pkg>1, &$<pkg>2); };
+  : identificador IGUAL expr ';' { addToTable(&$<pkg>1); };
 
 stmt 
   : while stmt { /* vazio */ }

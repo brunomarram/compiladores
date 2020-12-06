@@ -30,7 +30,6 @@ typedef struct symbolTable
 {
   char *name;
   int kind;
-  int idIR;
   union {
     int number;
     float decimal;
@@ -41,9 +40,7 @@ typedef struct symbolTable
 
 symbolTable SymbolTable[TABLE_SIZE];
 
-extern int linha;
 extern FILE *yyin, *yyout;
-extern int proxIR;
 
 int searchEntryAtSymbolTable(char*);
 void initBlockList(void);

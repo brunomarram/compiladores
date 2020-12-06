@@ -136,7 +136,7 @@ operadorDoido "endoidou"
 {shiftRight}    { return SHIFTRIGHT;}
 
 {letter}      { yylval.pkg.letter = yytext[1]; yylval.pkg.type = TYPE_CHAR; return LETTER;}
-{positive}    { yylval.pkg.value_int = atoi(yytext) ; yylval.pkg.type = TYPE_INT; return POSITIVE;}
+{positive}    {  yylval.pkg.value_int = atoi(yytext) ; yylval.pkg.type = TYPE_INT; return POSITIVE;}
 {negative}    { yylval.pkg.value_int = atoi(yytext) ; yylval.pkg.type = TYPE_INT; return NEGATIVE;}
 {decimal}     { yylval.pkg.value_float = atof(yytext) ; yylval.pkg.type = TYPE_FLOAT; return DECIMAL;}
 
