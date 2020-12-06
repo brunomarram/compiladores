@@ -1,5 +1,7 @@
 %{
 
+#define YYDEBUG 1 
+
 typedef union YYSTYPE {
 struct pkg 
 {     
@@ -33,7 +35,7 @@ struct pkg
   {
     printf("nome: %s\n", a->pkg.name);
     printf("value float: %f\n", a->pkg.value_float);
-    printf("value int: %f\n", a->pkg.value_int);
+    printf("value int: %d\n", a->pkg.value_int);
     printf("type : %d\n", a->pkg.type);
     printf("letter %c \n", a->pkg.letter);
 
@@ -373,6 +375,10 @@ void yyerror(char *s) { // const char *s
 }
 
 int main() {
+
+  #if YYDEBUG
+    yydebug = 1;
+  #endif
   initBlockList();
   yyparse();
 

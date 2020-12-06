@@ -1,3 +1,4 @@
 comecou
     daniel CAFgabriel toma 5;
+    daniel CAFbruno toma 2;
 acabou
