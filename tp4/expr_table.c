@@ -2,55 +2,78 @@
 #define EXPR_TABLE__
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 struct expr{
 
+    char id[32];
 	char operand1[16];
 	char operand2[16];
 	char operator[16];
-	char result[16];
+	int result;
+
 };
 
 struct expr exprTable[20]; 
 
-int temp = 0;
+// int temp = 0;
 int proxExprId = 0;
 int id_IR = 0;
 
-char addToTable(struct pkg *a, struct pkg *b, char *operator) {
+int indexIdTable(char *id){
+    for(int i = 0; i < 20; i++) {
+        if(!strcmp(exprTable[i].id, id)) {
+            return exprTable[i].result;
+        }
+    }
+    return -1;
+}
+
+void addToTable(struct pkg *a, struct pkg *b, char *operator) {
     
-    temp++;
+    // temp++;
     
     // printf("proxExprId: %d\n",proxExprId);
 
     // printf("\n\n %d", (a->value_int * b->value_int));
     // printf("\n\nIDENTIFICADOR: %s | VALOR1: %d | VALOR2: %d \n\n", a->name, a->value_int, b->value_int);
+    // int id_a = -1;
     
-    sprintf(exprTable[proxExprId].operand1, "%d", a->value_int);
-    sprintf(exprTable[proxExprId].operand2, "%d", b->value_int);
-    strcpy(exprTable[proxExprId].operator, operator);
-    // exprTable[proxExprId].result = id_IR;
-    sprintf(exprTable[proxExprId].result, "t%d", id_IR);
+    int index_Id = indexIdTable(a->name);
+    
+    if(index_Id == -1) {
 
-    if(!strcmp(operator, "<-")) {
-        printf("\nt%d = %d", id_IR, b->value_int);
-    } else if(!strcmp(operator, "=")) {
-        printf("\nt%d = t%d", id_IR, id_IR-1);
-    } else {
-        printf("\nt%d = %d %s %d", id_IR, a->value_int, operator, b->value_int);
+        index_Id = proxExprId;
+
+        sprintf(exprTable[index_Id].operand1, "%d", a->value_int);
+        sprintf(exprTable[index_Id].operand2, "%d", b->value_int);
+        strcpy(exprTable[index_Id].operator, operator);
+        // sprintf(exprTable[index_Id].result, "t%d", id_IR);
+        exprTable[index_Id].result = id_IR;
+        
+        if(!strcmp(operator, "<-"))
+            strcpy(exprTable[index_Id].id, a->name);
+        else
+            strcpy(exprTable[index_Id].id, "-1");
+
+        proxExprId++;
     }
 
-    id_IR++;
-    // if(a->value_int ) {
-    //     exprTable[proxExprId].operand1 = id_IR;
-    //     exprTable[proxExprId].operand2 = ;
-    //     exprTable[proxExprId].operator = o;
-    //     exprTable[proxExprId].result = proxExprId;
-    // }
+    if(!strcmp(operator, "<-")) {
+        printf("t%d = %d", index_Id, b->value_int);
+    } else if(!strcmp(operator, "=")) {
+        printf("t%d = t%d", index_Id, id_IR-1);
+    } else {
+        printf("t%d = %d %s %d", index_Id, a->value_int, operator, b->value_int);
+    }
 
-    proxExprId += 1;
-    return temp;
+    printf("\n");
+    
+    id_IR++;
+
+    // id_a += 1;
+    // return temp;
 }
 
 #endif

@@ -1,5 +1,6 @@
 comecou
     daniel CAFgabriel toma 5;
     daniel CAFbruno toma 2;
+    daniel CAFpaulo toma 20;
     CAFbruno toma baixo 10 amou 20 alto;
 acabou

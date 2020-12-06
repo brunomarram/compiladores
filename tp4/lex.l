@@ -135,10 +135,10 @@ operadorDoido "endoidou"
 {shiftLeft}     { return SHIFTLEFT;}
 {shiftRight}    { return SHIFTRIGHT;}
 
-{letter}      { yylval.pkg.letter = yytext[1]; yylval.pkg.is_id = 0; yylval.pkg.type = TYPE_CHAR; return LETTER;}
-{positive}    { yylval.pkg.value_int = atoi(yytext); yylval.pkg.is_id = 0; yylval.pkg.type = TYPE_INT; return POSITIVE;}
-{negative}    { yylval.pkg.value_int = atoi(yytext); yylval.pkg.is_id = 0; yylval.pkg.type = TYPE_INT; return NEGATIVE;}
-{decimal}     { yylval.pkg.value_float = atof(yytext); yylval.pkg.is_id = 0; yylval.pkg.type = TYPE_FLOAT; return DECIMAL;}
+{letter}      { yylval.pkg.name = strdup("-1"); yylval.pkg.letter = yytext[1]; yylval.pkg.is_id = 0; yylval.pkg.type = TYPE_CHAR; return LETTER;}
+{positive}    { yylval.pkg.name = strdup("-1"); yylval.pkg.value_int = atoi(yytext); yylval.pkg.is_id = 0; yylval.pkg.type = TYPE_INT; return POSITIVE;}
+{negative}    { yylval.pkg.name = strdup("-1"); yylval.pkg.value_int = atoi(yytext); yylval.pkg.is_id = 0; yylval.pkg.type = TYPE_INT; return NEGATIVE;}
+{decimal}     { yylval.pkg.name = strdup("-1"); yylval.pkg.value_float = atof(yytext); yylval.pkg.is_id = 0; yylval.pkg.type = TYPE_FLOAT; return DECIMAL;}
 
 {nl} {extern int lineno; lineno++;}
 

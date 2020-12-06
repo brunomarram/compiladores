@@ -284,11 +284,14 @@ int main() {
   #if YYDEBUG
     yydebug = 0;
   #endif
+
+  printf("\n");
+
   initBlockList();
   yyparse();
 
   if(global_syntax_errors == 0) {
-    printf("\n\nPrograma correto\n");
+    printf("\nPrograma correto\n");
   }
 
   return 0;
