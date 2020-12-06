@@ -1,55 +1,22 @@
 %{
 
-#define YYDEBUG 1 
-
-typedef union YYSTYPE {
-struct pkg 
-{     
-	char *name;
-	float value_float;
-	int value_int;
-	int type;
-	char letter; 
-} pkg;
-
-
-}YYSTYPE;
-
 
   #include "yystype.h"
+  #include "expr_table.c"
   #include "lex.yy.c"  
   #include <stdio.h>
   #include "symbol_table.h"
   #include "symbol_table.c"
 
-  int proxIR = 0;
-  int proxExprId = 0;
-  int temp = 0;
+  
 
   int yylex();
   void yyerror(char *s); 
   int global_type;
   char *global_id_name;
   int global_syntax_errors = 0;
-  void printPkg(YYSTYPE *a)
-  {
-    printf("nome: %s\n", a->pkg.name);
-    printf("value float: %f\n", a->pkg.value_float);
-    printf("value int: %d\n", a->pkg.value_int);
-    printf("type : %d\n", a->pkg.type);
-    printf("letter %c \n", a->pkg.letter);
 
-  }
 
-struct expr{
-
-	char *operand1;
-	char operand2;
-	char operator;
-	char result;
-};
-
-struct expr exprTable[20]; 
 
 int checkType(struct pkg *a, struct pkg *b) {
   if(a->type == b->type)
