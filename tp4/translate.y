@@ -24,31 +24,16 @@
 
   int checkType(struct pkg *a, struct pkg *b) {
 
-    if(!strcmp(a->name, "")) {
+    if(a->is_id == 1) {
       int symbolTableID = searchEntryAtSymbolTable(a->name);
       if(SymbolTable[symbolTableID].type == b->type)
         return 1;
-    } else {
-      if(a->type == b->type)
-        return 1;
-    }
-    // printf("symboltable[identicador].name(gerar) %s\n", identificador->pkg.name);
+    } else if (a->type == b->type)
+      return 1;
     
-    printf("\n\n\nErro semântico: %d e %d\n\n\n", a->type, b->type);
+    printf("\n\nErro semântico: %d e %d\n\n", a->type, b->type);
     return 0;
-  }
 
-  char addToTable(struct pkg *a, struct pkg *b){
-    temp++;
-    printf("%d\n",proxExprId);
-    // exprTable[proxExprId].operand1 = a->name;
-    printf("\n\n %d", (a->value_int * b->value_int));
-    printf("\n\nIDENTIFICADOR: %s | VALOR1: %d | VALOR2: %d \n\n", a->name, a->value_int, b->value_int);
-    // exprTable[proxExprId].operand2 = b;
-    // exprTable[proxExprId].operator = o;
-    // exprTable[proxExprId].result = proxExprId;
-    proxExprId += 1;
-    return temp;
   }
 
 %}
@@ -98,25 +83,25 @@ term
 
 expr 
   : ABREEXPRESSAO expr FECHAEXPRESSAO {  }
-  | expr ASTERISCO expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr BARRA expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }  
-  | expr CHAPEU expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr DIFERENTE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr EDOUBLE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr ELOGICO expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr IGUALIGUAL expr { /* vazio *name */ }
-  | expr MAIORQUE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr MAIS expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr MENOROUIGUAL expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr MAIOROUIGUAL expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr MENORQUE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr MENOS expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr PERCENTUAL expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr PIPE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr PIPEDOUBLE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr SHIFTLEFT expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr SHIFTRIGHT expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
-  | expr OPERADORDOIDO expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr ASTERISCO expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, "*"); else exit(1); }
+  | expr BARRA expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, "/"); else exit(1); }  
+  | expr CHAPEU expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, " "); else exit(1); }
+  | expr DIFERENTE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, " "); else exit(1); }
+  | expr EDOUBLE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, " "); else exit(1); }
+  | expr ELOGICO expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, " "); else exit(1); }
+  | expr IGUALIGUAL expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, " "); else exit(1); }
+  | expr MAIORQUE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, ">"); else exit(1); }
+  | expr MAIS expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, "+"); else exit(1); }
+  | expr MENOROUIGUAL expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, " "); else exit(1); }
+  | expr MAIOROUIGUAL expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, " "); else exit(1); }
+  | expr MENORQUE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, "<"); else exit(1); }
+  | expr MENOS expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, "-"); else exit(1); }
+  | expr PERCENTUAL expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, "%"); else exit(1); }
+  | expr PIPE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, "|"); else exit(1); }
+  | expr PIPEDOUBLE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, " "); else exit(1); }
+  | expr SHIFTLEFT expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, " "); else exit(1); }
+  | expr SHIFTRIGHT expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, " "); else exit(1); }
+  | expr OPERADORDOIDO expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, " "); else exit(1); }
   | term
   ;
 
@@ -146,7 +131,7 @@ identificador
   ;
 
 definicaoVariavel 
-  : modificadorTipo identificador IGUAL expr ';' { if(checkType(&$<pkg>2, &$<pkg>4)) addToTable(&$<pkg>2, &$<pkg>4); else exit(1); }
+  : modificadorTipo identificador IGUAL expr ';' { if(checkType(&$<pkg>2, &$<pkg>4)) addToTable(&$<pkg>2, &$<pkg>4, "="); else exit(1); }
   ;
 
 definicaoFuncao 
@@ -217,7 +202,7 @@ stmtListLoop
   ;
 
 assigment
-  : identificador IGUAL expr ';' { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); };
+  : identificador IGUAL expr ';' { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3, "="); else exit(1); };
 
 stmt 
   : while stmt { /* vazio */ }
@@ -297,13 +282,13 @@ void yyerror(char *s) { // const char *s
 int main() {
 
   #if YYDEBUG
-    yydebug = 1;
+    yydebug = 0;
   #endif
   initBlockList();
   yyparse();
 
   if(global_syntax_errors == 0) {
-    printf("\nPrograma correto\n");
+    printf("\n\nPrograma correto\n");
   }
 
   return 0;
