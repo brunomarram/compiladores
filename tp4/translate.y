@@ -131,7 +131,7 @@ identificador
   ;
 
 definicaoVariavel 
-  : modificadorTipo identificador IGUAL expr ';' { if(checkType(&$<pkg>2, &$<pkg>4)) addToTable(&$<pkg>2, &$<pkg>4, "="); else exit(1); }
+  : modificadorTipo identificador IGUAL expr ';' { if(checkType(&$<pkg>2, &$<pkg>4)) addToTable(&$<pkg>2, &$<pkg>4, "<-"); else exit(1); }
   ;
 
 definicaoFuncao 

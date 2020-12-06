@@ -33,13 +33,12 @@ char addToTable(struct pkg *a, struct pkg *b, char *operator) {
     // exprTable[proxExprId].result = id_IR;
     sprintf(exprTable[proxExprId].result, "t%d", id_IR);
 
-    if(strcmp(operator, "=")) {
-        printf("\nt%d = %d %s %d", id_IR, a->value_int, operator, b->value_int);
+    if(!strcmp(operator, "<-")) {
+        printf("\nt%d = %d", id_IR, b->value_int);
+    } else if(!strcmp(operator, "=")) {
+        printf("\nt%d = t%d", id_IR, id_IR-1);
     } else {
-        if(id_IR == 0)
-            printf("\nt%d = %d", id_IR, b->value_int);
-        else
-            printf("\nt%d = t%d", id_IR, id_IR-1);
+        printf("\nt%d = %d %s %d", id_IR, a->value_int, operator, b->value_int);
     }
 
     id_IR++;
