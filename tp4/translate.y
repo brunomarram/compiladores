@@ -9,9 +9,7 @@
   #include "symbol_table.c"
 
   int yylex();
-  void yyerror(char *s); 
-  int global_type;
-  char *global_id_name;
+  void yyerror(char *s);
   int global_syntax_errors = 0;
 
   void printPkg(YYSTYPE *a) {
@@ -127,7 +125,7 @@ elseif
   ;
 
 identificador
-  : ID { global_id_name = strdup($<pkg.name>1);installSymbolAtSymbolTable($<pkg.name>1, global_type); } 
+  : ID { installSymbolAtSymbolTable($<pkg.name>1, $<pkg.type>1); } 
   ;
 
 definicaoVariavel 
@@ -157,11 +155,11 @@ label
 
 
 modificadorTipo 
-  : CHAR      {global_type = TYPE_CHAR;}
-  | VOID      {global_type = TYPE_VOID;}
-  | FLOAT     {global_type = TYPE_FLOAT;}
-  | DOUBLE    {global_type = TYPE_DOUBLE;}
-  | INT       {global_type = TYPE_INT;}
+  : CHAR      { /* vazio */ }
+  | VOID      { /* vazio */ }
+  | FLOAT     { /* vazio */ }
+  | DOUBLE    { /* vazio */ }
+  | INT       { /* vazio */ }
   ;
 
 
