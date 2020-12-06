@@ -29,7 +29,7 @@
 typedef struct symbolTable
 {
   char *name;
-  int kind;
+  int type;
   union {
     int number;
     float decimal;

@@ -52,7 +52,7 @@ int searchEntryAtSymbolTable(char* symbol)
 	return 0;
 }
 
- void installSymbolAtSymbolTable(char* symbol, int kind)
+ void installSymbolAtSymbolTable(char* symbol, int type)
 {
 	int K;
 	K = indexOfLastElementAtSymbolTable;
@@ -64,7 +64,7 @@ int searchEntryAtSymbolTable(char* symbol)
 			return;
 		}
 	}
-	SymbolTable[indexOfLastElementAtSymbolTable].kind = kind;
+	SymbolTable[indexOfLastElementAtSymbolTable].type = type;
 	SymbolTable[indexOfLastElementAtSymbolTable].name = strdup(symbol);
 	indexOfLastElementAtSymbolTable++;
 }
@@ -75,7 +75,7 @@ void printSymbolTable()
 	printf("Index\t	Tipo\tNome\n");
 	for (int i = 1; i < indexOfLastElementAtSymbolTable ; i++ )
 	{
-		printf("%d\t\t%d\t\t%s\n", i, SymbolTable[i].kind, SymbolTable[i].name);
+		printf("%d\t\t%d\t\t%s\n", i, SymbolTable[i].type, SymbolTable[i].name);
 	}
 }
 
@@ -87,7 +87,7 @@ int getTypeAtSymbolTable(char* symbol, int parameter1, int parameter2)
 	while (K > 1)
 	{
         K--;
-        if( !strcmp(symbol, SymbolTable[K].name ) ) type = SymbolTable[K].kind;
+        if( !strcmp(symbol, SymbolTable[K].name ) ) type = SymbolTable[K].type;
 	}
 
 	if(type == parameter1 && type == parameter2) return type;

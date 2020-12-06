@@ -1,48 +1,47 @@
 %{
 
-
   #include "yystype.h"
   #include "expr_table.c"
   #include "lex.yy.c"  
   #include <stdio.h>
+  #include <string.h>
   #include "symbol_table.h"
   #include "symbol_table.c"
-
-  
 
   int yylex();
   void yyerror(char *s); 
   int global_type;
   char *global_id_name;
   int global_syntax_errors = 0;
-  void printPkg(YYSTYPE *a)
-  {
+
+  void printPkg(YYSTYPE *a) {
     printf("nome: %s\n", a->pkg.name);
     printf("value float: %f\n", a->pkg.value_float);
     printf("value int: %d\n", a->pkg.value_int);
     printf("type : %d\n", a->pkg.type);
     printf("letter %c \n", a->pkg.letter);
-
   }
 
+  int checkType(struct pkg *a, struct pkg *b) {
 
+    if(!strcmp(a->name, "")) {
+      int symbolTableID = searchEntryAtSymbolTable(a->name);
+      if(SymbolTable[symbolTableID].type == b->type)
+        return 1;
+    } else {
+      if(a->type == b->type)
+        return 1;
+    }
+    // printf("symboltable[identicador].name(gerar) %s\n", identificador->pkg.name);
+    
+    printf("\n\n\nErro semântico: %d e %d\n\n\n", a->type, b->type);
+    return 0;
+  }
 
-
-
-
-int checkType(struct pkg *a, struct pkg *b) {
-  if(a->type == b->type)
-    return 1;
-  else if((a->type == 5 && b->type == 2) || (a->type == 2 && b->type == 5))
-    return 1;
-  printf("\n\n\nErro semântico: %d e %d\n\n\n", a->type, b->type);
-  return 0;
-}
-
-char addToTable(struct pkg *a, struct pkg *b){
+  char addToTable(struct pkg *a, struct pkg *b){
     temp++;
     printf("%d\n",proxExprId);
-    exprTable[proxExprId].operand1 = a->name;
+    // exprTable[proxExprId].operand1 = a->name;
     printf("\n\n %d", (a->value_int * b->value_int));
     printf("\n\nIDENTIFICADOR: %s | VALOR1: %d | VALOR2: %d \n\n", a->name, a->value_int, b->value_int);
     // exprTable[proxExprId].operand2 = b;
@@ -50,75 +49,8 @@ char addToTable(struct pkg *a, struct pkg *b){
     // exprTable[proxExprId].result = proxExprId;
     proxExprId += 1;
     return temp;
-}
-
-
-  void gerar(YYSTYPE *identificador, YYSTYPE *a)
-  {
-    // printf("identificador.name(gerar) %s\n", identificador->pkg.name);
-    // printf("a.name(gerar) %d\n", a->pkg.name);
-    // printf("a.value_int(gerar) %d\n", a->pkg.value_int);
-    // int symbolTableID = searchEntryAtSymbolTable(identificador->pkg.name);
-    //  printf("symboltable[identicador].name(gerar) %s\n", identificador->pkg.name);
-    // printf("t%s = \n", identificador->pkg.name);
-    // printf("t%s = ", SymbolTable[symbolTableID].name);
-    // printf("t%d = ", SymbolTable[symbolTableID].idIR);
-    // if(a->pkg.type == TYPE_CHAR)
-    //   printf("%c", a->pkg.letter);
-
-    // else if(a->pkg.type == TYPE_INT)
-    //   printf("%d", a->pkg.value_int);
-    
-    // else
-    //   printf("%f", a->pkg.value_float);
-
-
-    // printf("\n");
   }
 
-  void multiplica(YYSTYPE *result, YYSTYPE *a, YYSTYPE *b) {
-    if(a->pkg.type == b->pkg.type) {
-
-      if(a->pkg.type == TYPE_INT) {
-
-        result->pkg.type = TYPE_INT;
-        result->pkg.value_int = a->pkg.value_int * b->pkg.value_int;
-      }
-    }
-    else {
-      
-      result->pkg.type = -1;
-    }
-  }
-  
-
-
-  void chama(YYSTYPE* result, YYSTYPE* id, YYSTYPE* a, YYSTYPE* b, void (operacao)(YYSTYPE *result, YYSTYPE *a, YYSTYPE *b)) {
-    global_type = getTypeAtSymbolTable(id->pkg.name, a->pkg.type, b->pkg.type);
-  
-    YYSTYPE resultOp;
-    multiplica(&resultOp, a,b);
-    if(resultOp.pkg.type == -1) {
-      printf("Operação binária com tipos diferentes\n");
-      exit(-1);
-    }
-    switch(global_type) { // Não é para ver o tipo em a->pkg.type ou b->pkg.type?
-
-      case 2:
-        result->pkg.value_int = a->pkg.value_int * b->pkg.value_int;
-        break;
-      case 3:
-        result->pkg.letter = a->pkg.letter * b->pkg.letter;
-        break;
-      case 5:
-        result->pkg.value_float = a->pkg.value_float * b->pkg.value_float;
-        break;
-      default:
-        printf("Operação de tipos inválida\n");
-        break;
-    }
-
-  }
 %}
 
 /* definitions */
