@@ -17,15 +17,4 @@ struct pkg
 }YYSTYPE;
 #define YYSTYPE YYSTYPE
 
-void printPkg(YYSTYPE *a)
-{
-printf("nome: %s\n", a->pkg.name);
-printf("value float: %f\n", a->pkg.value_float);
-printf("value int: %d\n", a->pkg.value_int);
-printf("type : %d\n", a->pkg.type);
-printf("letter %c \n", a->pkg.letter);
-
-}
-
-
 #endif
