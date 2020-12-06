@@ -17,7 +17,6 @@ struct expr{
 
 struct expr exprTable[20]; 
 
-// int temp = 0;
 int proxExprId = 0;
 int id_IR = 0;
 
@@ -31,14 +30,6 @@ int indexIdTable(char *id){
 }
 
 void addToTable(struct pkg *a, struct pkg *b, char *operator) {
-    
-    // temp++;
-    
-    // printf("proxExprId: %d\n",proxExprId);
-
-    // printf("\n\n %d", (a->value_int * b->value_int));
-    // printf("\n\nIDENTIFICADOR: %s | VALOR1: %d | VALOR2: %d \n\n", a->name, a->value_int, b->value_int);
-    // int id_a = -1;
     
     int index_Id = indexIdTable(a->name);
     
@@ -55,7 +46,7 @@ void addToTable(struct pkg *a, struct pkg *b, char *operator) {
         if(!strcmp(operator, "<-"))
             strcpy(exprTable[index_Id].id, a->name);
         else
-            strcpy(exprTable[index_Id].id, "-1");
+            strcpy(exprTable[index_Id].id, "");
 
         proxExprId++;
     }
@@ -69,11 +60,9 @@ void addToTable(struct pkg *a, struct pkg *b, char *operator) {
     }
 
     printf("\n");
-    
+
     id_IR++;
 
-    // id_a += 1;
-    // return temp;
 }
 
 #endif
