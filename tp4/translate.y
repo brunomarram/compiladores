@@ -43,10 +43,10 @@ struct pkg
 
 struct expr{
 
-	char operand1[2];
-	char operand2[2];
-	char operator[2];
-	char result[2];
+	char operand1[3];
+	char operand2[3];
+	char operator[3];
+	char result[3];
 };
 
 struct expr exprTable[20]; 
