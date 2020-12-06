@@ -1,30 +1,14 @@
 %{
 
-#define YYDEBUG 1 
-
-typedef union YYSTYPE {
-struct pkg 
-{     
-	char *name;
-	float value_float;
-	int value_int;
-	int type;
-	char letter; 
-} pkg;
-
-
-}YYSTYPE;
-
 
   #include "yystype.h"
+  #include "expr_table.c"
   #include "lex.yy.c"  
   #include <stdio.h>
   #include "symbol_table.h"
   #include "symbol_table.c"
 
-  int proxIR = 0;
-  int proxExprId = 0;
-  int temp = 0;
+  
 
   int yylex();
   void yyerror(char *s); 
@@ -41,28 +25,11 @@ struct pkg
 
   }
 
-struct expr{
-
-	char operand1[3];
-	char operand2[3];
-	char operator[3];
-	char result[3];
-};
-
-struct expr exprTable[20]; 
 
 
-char addToTable(struct pkg *a){
-    temp++;
-    printf("%d\n",proxExprId);
-    exprTable[proxExprId].operand1 = a->name;
-    printf("asds %s \n", a->name);
-    // exprTable[proxExprId].operand2 = b;
-    // exprTable[proxExprId].operator = o;
-    // exprTable[proxExprId].result = proxExprId;
-    proxExprId += 1;
-    return temp;
-}
+
+
+
 
 
   void gerar(YYSTYPE *identificador, YYSTYPE *a)
