@@ -51,12 +51,21 @@ struct expr{
 
 struct expr exprTable[20]; 
 
+int checkType(struct pkg *a, struct pkg *b) {
+  if(a->type == b->type)
+    return 1;
+  else if((a->type == 5 && b->type == 2) || (a->type == 2 && b->type == 5))
+    return 1;
+  printf("\n\n\nErro semântico: %d e %d\n\n\n", a->type, b->type);
+  return 0;
+}
 
-char addToTable(struct pkg *a){
+char addToTable(struct pkg *a, struct pkg *b){
     temp++;
     printf("%d\n",proxExprId);
     exprTable[proxExprId].operand1 = a->name;
-    printf("asds %s \n", a->name);
+    printf("\n\n %d", (a->value_int * b->value_int));
+    printf("\n\nIDENTIFICADOR: %s | VALOR1: %d | VALOR2: %d \n\n", a->name, a->value_int, b->value_int);
     // exprTable[proxExprId].operand2 = b;
     // exprTable[proxExprId].operator = o;
     // exprTable[proxExprId].result = proxExprId;
@@ -178,25 +187,25 @@ term
 
 expr 
   : ABREEXPRESSAO expr FECHAEXPRESSAO {  }
-  | expr ASTERISCO expr { addToTable(&$<pkg>1); }
-  | expr BARRA expr {  }  
-  | expr CHAPEU expr {  }
-  | expr DIFERENTE expr {  }
-  | expr EDOUBLE expr {  }
-  | expr ELOGICO expr {  }
+  | expr ASTERISCO expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr BARRA expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }  
+  | expr CHAPEU expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr DIFERENTE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr EDOUBLE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr ELOGICO expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
   | expr IGUALIGUAL expr { /* vazio *name */ }
-  | expr MAIORQUE expr {  }
-  | expr MAIS expr {  }
-  | expr MENOROUIGUAL expr {  }
-  | expr MAIOROUIGUAL expr {  }
-  | expr MENORQUE expr {  }
-  | expr MENOS expr {  }
-  | expr PERCENTUAL expr {  }
-  | expr PIPE expr {  }
-  | expr PIPEDOUBLE expr {  }
-  | expr SHIFTLEFT expr {  }
-  | expr SHIFTRIGHT expr {  }
-  | expr OPERADORDOIDO expr {  }
+  | expr MAIORQUE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr MAIS expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr MENOROUIGUAL expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr MAIOROUIGUAL expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr MENORQUE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr MENOS expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr PERCENTUAL expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr PIPE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr PIPEDOUBLE expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr SHIFTLEFT expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr SHIFTRIGHT expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
+  | expr OPERADORDOIDO expr { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); }
   | term
   ;
 
@@ -226,7 +235,7 @@ identificador
   ;
 
 definicaoVariavel 
-  : modificadorTipo identificador IGUAL expr ';' { addToTable(&$<pkg>1);}
+  : modificadorTipo identificador IGUAL expr ';' { if(checkType(&$<pkg>2, &$<pkg>4)) addToTable(&$<pkg>2, &$<pkg>4); else exit(1); }
   ;
 
 definicaoFuncao 
@@ -297,7 +306,7 @@ stmtListLoop
   ;
 
 assigment
-  : identificador IGUAL expr ';' { addToTable(&$<pkg>1); };
+  : identificador IGUAL expr ';' { if(checkType(&$<pkg>1, &$<pkg>3)) addToTable(&$<pkg>1, &$<pkg>3); else exit(1); };
 
 stmt 
   : while stmt { /* vazio */ }
