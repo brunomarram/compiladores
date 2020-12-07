@@ -22,9 +22,18 @@
 
   int checkType(struct pkg *a, struct pkg *b) {
 
-    if(a->is_id == 1) {
+    if(a->is_id == 1 && b->is_id == 1) {
+      int symbolTableID = searchEntryAtSymbolTable(a->name);
+      int symbolTableID_2 = searchEntryAtSymbolTable(b->name);
+      if(SymbolTable[symbolTableID].type == SymbolTable[symbolTableID_2].type)
+        return 1;
+    } else if(a->is_id == 1) {
       int symbolTableID = searchEntryAtSymbolTable(a->name);
       if(SymbolTable[symbolTableID].type == b->type)
+        return 1;
+    } else if(b->is_id == 1) {
+      int symbolTableID = searchEntryAtSymbolTable(b->name);
+      if(SymbolTable[symbolTableID].type == a->type)
         return 1;
     } else if (a->type == b->type)
       return 1;
